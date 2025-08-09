@@ -211,6 +211,11 @@
     border-radius:10px;
     overflow:hidden;
     border: 1px solid rgba(255,255,255,0.03);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    color: var(--muted);
   }
   .embed iframe{ width:100%; height:100%; border:0; display:block; }
 
@@ -272,10 +277,9 @@
     min-width: 150px;
   }
 
-  /* ИСПРАВЛЕНИЕ: Цвет текста в выпадающем списке для темной темы */
   [data-theme="dark"] .custom-select option {
-      background: white;
-      color: black;
+      background: var(--bg-1);
+      color: var(--text);
   }
 
   .playlist-area{
@@ -493,8 +497,8 @@
           <label for="playerSource">Выбор плеера:</label>
           <div class="custom-select">
             <select id="playerSource" name="playerSource">
-              <option value="mega">MEGA</option>
               <option value="dzen" selected>Dzen</option>
+              <option value="mega">MEGA</option>
               <option value="kodik">Kodik</option>
             </select>
           </div>
@@ -555,23 +559,23 @@
   </div>
 
 <script>
-const episodes = [
-  { id:1138, title: "Эпизод 1138", iframe: `<iframe width="480" height="270" src="https://dzen.ru/embed/o30Zzym4IAAA?from_block=partner&from=zen&mute=0&autoplay=0&tv=0" allow="autoplay; fullscreen; accelerometer; gyroscope; picture-in-picture; encrypted-media" data-testid="embed-iframe" frameborder="0" scrolling="no" allowfullscreen></iframe>`, date:"2025-08-10", quality:"1080p", thumb:"https://storage.donatty.com/d17ea7f6-5bbb-42be-97a9-dbba46b93cc8/cover_b7dce2b45b7afcef804ec3b61333f53d.jpg" },
-  { id:1137, title: "Эпизод 1137", iframe: `<iframe width="480" height="270" src="https://dzen.ru/embed/o30ZMym4IAAA?from_block=partner&from=zen&mute=0&autoplay=0&tv=0" allow="autoplay; fullscreen; accelerometer; gyroscope; picture-in-picture; encrypted-media" data-testid="embed-iframe" frameborder="0" scrolling="no" allowfullscreen></iframe>`, date:"2025-08-10", quality:"1080p", thumb:"https://storage.donatty.com/d17ea7f6-5bbb-42be-97a9-dbba46b93cc8/cover_b7dce2b45b7afcef804ec3b61333f53d.jpg" },
-  { id:1136, title: "Эпизод 1136", iframe: `<iframe width="480" height="270" src="https://dzen.ru/embed/o30Ydym4IAAA?from_block=partner&from=zen&mute=0&autoplay=0&tv=0" allow="autoplay; fullscreen; accelerometer; gyroscope; picture-in-picture; encrypted-media" data-testid="embed-iframe" frameborder="0" scrolling="no" allowfullscreen></iframe>`, date:"2025-08-10", quality:"1080p", thumb:"https://storage.donatty.com/d17ea7f6-5bbb-42be-97a9-dbba46b93cc8/cover_b7dce2b45b7afcef804ec3b61333f53d.jpg" },
-  { id:1135, title: "Эпизод 1135", iframe: `<iframe width="480" height="270" src="https://dzen.ru/embed/o30b8yW4IAAA?from_block=partner&from=zen&mute=0&autoplay=0&tv=0" allow="autoplay; fullscreen; accelerometer; gyroscope; picture-in-picture; encrypted-media" data-testid="embed-iframe" frameborder="0" scrolling="no" allowfullscreen></iframe>`, date:"2025-08-10", quality:"1080p", thumb:"https://storage.donatty.com/d17ea7f6-5bbb-42be-97a9-dbba46b93cc8/cover_b7dce2b45b7afcef804ec3b61333f53d.jpg" },
-  { id:1134, title: "Эпизод 1134", iframe: `<iframe width="480" height="270" src="https://dzen.ru/embed/o30bqyW4IAAA?from_block=partner&from=zen&mute=0&autoplay=0&tv=0" allow="autoplay; fullscreen; accelerometer; gyroscope; picture-in-picture; encrypted-media" data-testid="embed-iframe" frameborder="0" scrolling="no" allowfullscreen></iframe>`, date:"2025-08-10", quality:"1080p", thumb:"https://storage.donatty.com/d17ea7f6-5bbb-42be-97a9-dbba46b93cc8/cover_b7dce2b45b7afcef804ec3b61333f53d.jpg" },
-  { id:1133, title: "Эпизод 1133", iframe: `<iframe width="480" height="270" src="https://dzen.ru/embed/o30bMyW4IAAA?from_block=partner&from=zen&mute=0&autoplay=0&tv=0" allow="autoplay; fullscreen; accelerometer; gyroscope; picture-in-picture; encrypted-media" data-testid="embed-iframe" frameborder="0" scrolling="no" allowfullscreen></iframe>`, date:"2025-08-10", quality:"1080p", thumb:"https://storage.donatty.com/d17ea7f6-5bbb-42be-97a9-dbba46b93cc8/cover_b7dce2b45b7afcef804ec3b61333f53d.jpg" },
-  { id:1132, title: "Эпизод 1132", iframe: `<iframe width="480" height="270" src="https://dzen.ru/embed/o30avyW4IAAA?from_block=partner&from=zen&mute=0&autoplay=0&tv=0" allow="autoplay; fullscreen; accelerometer; gyroscope; picture-in-picture; encrypted-media" data-testid="embed-iframe" frameborder="0" scrolling="no" allowfullscreen></iframe>`, date:"2025-08-10", quality:"1080p", thumb:"https://storage.donatty.com/d17ea7f6-5bbb-42be-97a9-dbba46b93cc8/cover_b7dce2b45b7afcef804ec3b61333f53d.jpg" },
-  { id:1131, title: "Эпизод 1131", iframe: `<iframe width="480" height="270" src="https://dzen.ru/embed/o30Z-yW4IAAA?from_block=partner&from=zen&mute=0&autoplay=0&tv=0" allow="autoplay; fullscreen; accelerometer; gyroscope; picture-in-picture; encrypted-media" data-testid="embed-iframe" frameborder="0" scrolling="no" allowfullscreen></iframe>`, date:"2025-08-10", quality:"1080p", thumb:"https://storage.donatty.com/d17ea7f6-5bbb-42be-97a9-dbba46b93cc8/cover_b7dce2b45b7afcef804ec3b61333f53d.jpg" },
-  { id:1130, title: "Эпизод 1130", iframe: `<iframe width="480" height="270" src="https://dzen.ru/embed/o30ZgyW4IAAA?from_block=partner&from=zen&mute=0&autoplay=0&tv=0" allow="autoplay; fullscreen; accelerometer; gyroscope; picture-in-picture; encrypted-media" data-testid="embed-iframe" frameborder="0" scrolling="no" allowfullscreen></iframe>`, date:"2025-08-10", quality:"1080p", thumb:"https://storage.donatty.com/d17ea7f6-5bbb-42be-97a9-dbba46b93cc8/cover_b7dce2b45b7afcef804ec3b61333f53d.jpg" },
-  { id:1129, title: "Эпизод 1129", iframe: `<iframe width="480" height="270" src="https://dzen.ru/embed/o30ZTyW4IAAA?from_block=partner&from=zen&mute=0&autoplay=0&tv=0" allow="autoplay; fullscreen; accelerometer; gyroscope; picture-in-picture; encrypted-media" data-testid="embed-iframe" frameborder="0" scrolling="no" allowfullscreen></iframe>`, date:"2025-08-10", quality:"1080p", thumb:"https://storage.donatty.com/d17ea7f6-5bbb-42be-97a9-dbba46b93cc8/cover_b7dce2b45b7afcef804ec3b61333f53d.jpg" },
-  { id:1128, title: "Эпизод 1128", iframe: `<iframe width="480" height="270" src="https://dzen.ru/embed/o30b3yG4IAAA?from_block=partner&from=zen&mute=0&autoplay=0&tv=0" allow="autoplay; fullscreen; accelerometer; gyroscope; picture-in-picture; encrypted-media" data-testid="embed-iframe" frameborder="0" scrolling="no" allowfullscreen></iframe>`, date:"2025-08-10", quality:"1080p", thumb:"https://storage.donatty.com/d17ea7f6-5bbb-42be-97a9-dbba46b93cc8/cover_b7dce2b45b7afcef804ec3b61333f53d.jpg" },
-  { id:1137, title: "Эпизод 1127", iframe: `<iframe width="480" height="270" src="https://dzen.ru/embed/o30bnyG4IAAA?from_block=partner&from=zen&mute=0&autoplay=0&tv=0" allow="autoplay; fullscreen; accelerometer; gyroscope; picture-in-picture; encrypted-media" data-testid="embed-iframe" frameborder="0" scrolling="no" allowfullscreen></iframe>`, date:"2025-08-10", quality:"1080p", thumb:"https://storage.donatty.com/d17ea7f6-5bbb-42be-97a9-dbba46b93cc8/cover_b7dce2b45b7afcef804ec3b61333f53d.jpg" },
-  { id:1126, title: "Эпизод 1126", iframe: `<iframe width="480" height="270" src="https://dzen.ru/embed/o30auyG4IAAA?from_block=partner&from=zen&mute=0&autoplay=0&tv=0" allow="autoplay; fullscreen; accelerometer; gyroscope; picture-in-picture; encrypted-media" data-testid="embed-iframe" frameborder="0" scrolling="no" allowfullscreen></iframe>`, date:"2025-08-10", quality:"1080p", thumb:"https://storage.donatty.com/d17ea7f6-5bbb-42be-97a9-dbba46b93cc8/cover_b7dce2b45b7afcef804ec3b61333f53d.jpg" },
-  { id:1125, title: "Эпизод 1125", iframe: `<iframe width="480" height="270" src="https://dzen.ru/embed/o30ZWyG4IAAA?from_block=partner&from=zen&mute=0&autoplay=0&tv=0" allow="autoplay; fullscreen; accelerometer; gyroscope; picture-in-picture; encrypted-media" data-testid="embed-iframe" frameborder="0" scrolling="no" allowfullscreen></iframe>`, date:"2025-08-10", quality:"1080p", thumb:"https://storage.donatty.com/d17ea7f6-5bbb-42be-97a9-dbba46b93cc8/cover_b7dce2b45b7afcef804ec3b61333f53d.jpg" },
-  { id:1124, title: "Эпизод 1124", iframe: `<iframe width="480" height="270" src="https://dzen.ru/embed/o30ZNyG4IAAA?from_block=partner&from=zen&mute=0&autoplay=0&tv=0" allow="autoplay; fullscreen; accelerometer; gyroscope; picture-in-picture; encrypted-media" data-testid="embed-iframe" frameborder="0" scrolling="no" allowfullscreen></iframe>`, date:"2025-08-10", quality:"1080p", thumb:"https://storage.donatty.com/d17ea7f6-5bbb-42be-97a9-dbba46b93cc8/cover_b7dce2b45b7afcef804ec3b61333f53d.jpg" },
-  { id:1123, title: "Эпизод 1123", iframe: `<iframe width="480" height="270" src="https://dzen.ru/embed/o30ZNyG4IAAA?from_block=partner&from=zen&mute=0&autoplay=0&tv=0" allow="autoplay; fullscreen; accelerometer; gyroscope; picture-in-picture; encrypted-media" data-testid="embed-iframe" frameborder="0" scrolling="no" allowfullscreen></iframe>`, date:"2025-08-10", quality:"1080p", thumb:"https://storage.donatty.com/d17ea7f6-5bbb-42be-97a9-dbba46b93cc8/cover_b7dce2b45b7afcef804ec3b61333f53d.jpg" },
+// --- ОБНОВЛЕННАЯ СТРУКТУРА ДАННЫХ ---
+const initialEpisodes = [
+  { id: 1138, title: "Эпизод 1138", date:"2025-10-19", quality:"1080p", thumb:"https://i.ibb.co/LzP144Q1/cover-b7dce2b45b7afcef804ec3b61333f53d-waifu2x-art-noise1-scale.png", players: { dzen: `<iframe width="480" height="270" src="https://dzen.ru/embed/o30Zzym4IAAA?from_block=partner&from=zen&mute=0&autoplay=0&tv=0" allow="autoplay; fullscreen; accelerometer; gyroscope; picture-in-picture; encrypted-media" frameborder="0" scrolling="no" allowfullscreen></iframe>`, mega: '', kodik: ''} },
+  { id: 1137, title: "Эпизод 1137", date:"2025-10-12", quality:"1080p", thumb:"https://i.ibb.co/LzP144Q1/cover-b7dce2b45b7afcef804ec3b61333f53d-waifu2x-art-noise1-scale.png", players: { dzen: `<iframe width="480" height="270" src="https://dzen.ru/embed/o30ZMym4IAAA?from_block=partner&from=zen&mute=0&autoplay=0&tv=0" allow="autoplay; fullscreen; accelerometer; gyroscope; picture-in-picture; encrypted-media" frameborder="0" scrolling="no" allowfullscreen></iframe>`, mega: '', kodik: ''} },
+  { id: 1136, title: "Эпизод 1136", date:"2025-10-05", quality:"1080p", thumb:"https://i.ibb.co/LzP144Q1/cover-b7dce2b45b7afcef804ec3b61333f53d-waifu2x-art-noise1-scale.png", players: { dzen: `<iframe width="480" height="270" src="https://dzen.ru/embed/o30Ydym4IAAA?from_block=partner&from=zen&mute=0&autoplay=0&tv=0" allow="autoplay; fullscreen; accelerometer; gyroscope; picture-in-picture; encrypted-media" frameborder="0" scrolling="no" allowfullscreen></iframe>`, mega: '', kodik: ''} },
+  { id: 1135, title: "Эпизод 1135", date:"2025-09-28", quality:"1080p", thumb:"https://i.ibb.co/LzP144Q1/cover-b7dce2b45b7afcef804ec3b61333f53d-waifu2x-art-noise1-scale.png", players: { dzen: `<iframe width="480" height="270" src="https://dzen.ru/embed/o30b8yW4IAAA?from_block=partner&from=zen&mute=0&autoplay=0&tv=0" allow="autoplay; fullscreen; accelerometer; gyroscope; picture-in-picture; encrypted-media" frameborder="0" scrolling="no" allowfullscreen></iframe>`, mega: '', kodik: ''} },
+  { id: 1134, title: "Эпизод 1134", date:"2025-09-21", quality:"1080p", thumb:"https://i.ibb.co/LzP144Q1/cover-b7dce2b45b7afcef804ec3b61333f53d-waifu2x-art-noise1-scale.png", players: { dzen: `<iframe width="480" height="270" src="https://dzen.ru/embed/o30bqyW4IAAA?from_block=partner&from=zen&mute=0&autoplay=0&tv=0" allow="autoplay; fullscreen; accelerometer; gyroscope; picture-in-picture; encrypted-media" frameborder="0" scrolling="no" allowfullscreen></iframe>`, mega: '', kodik: ''} },
+  { id: 1133, title: "Эпизод 1133", date:"2025-09-14", quality:"1080p", thumb:"https://i.ibb.co/LzP144Q1/cover-b7dce2b45b7afcef804ec3b61333f53d-waifu2x-art-noise1-scale.png", players: { dzen: `<iframe width="480" height="270" src="https://dzen.ru/embed/o30bMyW4IAAA?from_block=partner&from=zen&mute=0&autoplay=0&tv=0" allow="autoplay; fullscreen; accelerometer; gyroscope; picture-in-picture; encrypted-media" frameborder="0" scrolling="no" allowfullscreen></iframe>`, mega: '', kodik: ''} },
+  { id: 1132, title: "Эпизод 1132", date:"2025-09-07", quality:"1080p", thumb:"https://i.ibb.co/LzP144Q1/cover-b7dce2b45b7afcef804ec3b61333f53d-waifu2x-art-noise1-scale.png", players: { dzen: `<iframe width="480" height="270" src="https://dzen.ru/embed/o30avyW4IAAA?from_block=partner&from=zen&mute=0&autoplay=0&tv=0" allow="autoplay; fullscreen; accelerometer; gyroscope; picture-in-picture; encrypted-media" frameborder="0" scrolling="no" allowfullscreen></iframe>`, mega: '', kodik: ''} },
+  { id: 1131, title: "Эпизод 1131", date:"2025-08-31", quality:"1080p", thumb:"https://i.ibb.co/LzP144Q1/cover-b7dce2b45b7afcef804ec3b61333f53d-waifu2x-art-noise1-scale.png", players: { dzen: `<iframe width="480" height="270" src="https://dzen.ru/embed/o30Z-yW4IAAA?from_block=partner&from=zen&mute=0&autoplay=0&tv=0" allow="autoplay; fullscreen; accelerometer; gyroscope; picture-in-picture; encrypted-media" frameborder="0" scrolling="no" allowfullscreen></iframe>`, mega: '', kodik: ''} },
+  { id: 1130, title: "Эпизод 1130", date:"2025-08-24", quality:"1080p", thumb:"https://i.ibb.co/LzP144Q1/cover-b7dce2b45b7afcef804ec3b61333f53d-waifu2x-art-noise1-scale.png", players: { dzen: `<iframe width="480" height="270" src="https://dzen.ru/embed/o30ZgyW4IAAA?from_block=partner&from=zen&mute=0&autoplay=0&tv=0" allow="autoplay; fullscreen; accelerometer; gyroscope; picture-in-picture; encrypted-media" frameborder="0" scrolling="no" allowfullscreen></iframe>`, mega: '', kodik: ''} },
+  { id: 1129, title: "Эпизод 1129", date:"2025-08-17", quality:"1080p", thumb:"https://i.ibb.co/LzP144Q1/cover-b7dce2b45b7afcef804ec3b61333f53d-waifu2x-art-noise1-scale.png", players: { dzen: `<iframe width="480" height="270" src="https://dzen.ru/embed/o30ZTyW4IAAA?from_block=partner&from=zen&mute=0&autoplay=0&tv=0" allow="autoplay; fullscreen; accelerometer; gyroscope; picture-in-picture; encrypted-media" frameborder="0" scrolling="no" allowfullscreen></iframe>`, mega: '', kodik: ''} },
+  { id: 1128, title: "Эпизод 1128", date:"2025-08-10", quality:"1080p", thumb:"https://i.ibb.co/LzP144Q1/cover-b7dce2b45b7afcef804ec3b61333f53d-waifu2x-art-noise1-scale.png", players: { dzen: `<iframe width="480" height="270" src="https://dzen.ru/embed/o30b3yG4IAAA?from_block=partner&from=zen&mute=0&autoplay=0&tv=0" allow="autoplay; fullscreen; accelerometer; gyroscope; picture-in-picture; encrypted-media" frameborder="0" scrolling="no" allowfullscreen></iframe>`, mega: '', kodik: ''} },
+];
+
+const STORAGE_KEY = 'onePieceAdminEpisodes'; // Ключ для localStorage
+let episodes = [];
 
 let currentIndex = 0;
 let autoNext = false;
@@ -586,10 +590,21 @@ const allBtn = document.getElementById('allBtn');
 const modal = document.getElementById('modal');
 const allTbody = document.getElementById('allTbody');
 const modalSearch = document.getElementById('modalSearch');
+const playerSourceSelect = document.getElementById('playerSource');
+
+function loadEpisodesFromStorage() {
+    const stored = localStorage.getItem(STORAGE_KEY);
+    // Загружаем из localStorage, если там что-то есть. Иначе используем initialEpisodes.
+    episodes = stored ? JSON.parse(stored) : initialEpisodes;
+    // Сортируем по ID в порядке убывания при загрузке
+    episodes.sort((a, b) => b.id - a.id);
+}
+
 
 function renderList(filter = ''){
   episodesGrid.innerHTML = '';
   const term = filter.trim().toLowerCase();
+  // Используем отсортированный массив
   episodes.forEach((ep, idx) => {
     if(term && !(ep.title.toLowerCase().includes(term) || String(ep.id).includes(term))) return;
     const el = document.createElement('div');
@@ -605,6 +620,7 @@ function renderList(filter = ''){
         <div class="s">${ep.date} • ${ep.quality}</div>
       </div>
     `;
+    // Привязываем событие к оригинальному индексу в неотсортированном массиве
     el.onclick = ()=> loadEpisode(idx);
     el.onkeypress = (e)=> { if(e.key === 'Enter') loadEpisode(idx) };
     episodesGrid.appendChild(el);
@@ -612,16 +628,29 @@ function renderList(filter = ''){
   markActive();
 }
 
+// --- ИЗМЕНЕННАЯ ФУНКЦИЯ ЗАГРУЗКИ ---
 function loadEpisode(idx, autoplay=false){
   if(idx < 0 || idx >= episodes.length) return;
   currentIndex = idx;
   const ep = episodes[idx];
-  playerEmbed.innerHTML = ep.iframe;
+  const selectedPlayer = playerSourceSelect.value; // Получаем текущий выбранный плеер
+
+  // Получаем iframe для выбранного плеера
+  const iframeCode = ep.players[selectedPlayer];
+
+  if (iframeCode) {
+    playerEmbed.innerHTML = iframeCode;
+  } else {
+    // Если для этого плеера нет iframe, показываем сообщение
+    playerEmbed.innerHTML = `<span>Для этого источника (${selectedPlayer.toUpperCase()}) видео не найдено.</span>`;
+  }
+  
   playerTitle.textContent = ep.title;
   playerSub.textContent = `${ep.date} • ${ep.quality}`;
   metaText.textContent = `EP ${ep.id} • Загружено: ${ep.date}`;
   markActive();
 }
+
 
 function markActive(){
   const nodes = Array.from(episodesGrid.children);
@@ -635,6 +664,12 @@ document.getElementById('prevBtn').addEventListener('click', ()=> {
 });
 document.getElementById('nextBtn').addEventListener('click', ()=> {
   if(currentIndex < episodes.length - 1) loadEpisode(currentIndex + 1, true);
+});
+
+// --- ДОБАВЛЕНА ЛОГИКА СМЕНЫ ПЛЕЕРА ---
+playerSourceSelect.addEventListener('change', () => {
+    // Просто перезагружаем текущий эпизод, функция сама подхватит нужный iframe
+    loadEpisode(currentIndex);
 });
 
 document.getElementById('pipBtn').addEventListener('click', async ()=>{
@@ -684,7 +719,11 @@ function renderModalTable(filter=''){
       const idx = Number(b.getAttribute('data-idx'));
       loadEpisode(idx);
       closeModal();
-      episodesGrid.children[idx]?.scrollIntoView({behavior:'smooth', block:'center'});
+      // Прокрутка к элементу в списке
+      const targetElement = episodesGrid.children[idx];
+      if (targetElement) {
+        targetElement.scrollIntoView({behavior:'smooth', block:'center'});
+      }
     };
   });
 }
@@ -695,9 +734,18 @@ modalSearch.addEventListener('keydown',(e)=>{ if(e.key === 'Enter') { const q=e.
 document.getElementById('shareBtn').addEventListener('click', ()=>{
   const ep = episodes[currentIndex];
   if(!ep) return alert('Эпизод не выбран');
-  const m = ep.iframe.match(/src="([^"]+)"/);
-  const url = m ? m[1] : window.location.href;
-  navigator.clipboard?.writeText(url).then(()=> alert('Ссылка скопирована в буфер обмена'), ()=> alert('Не удалось скопировать ссылку'));
+  
+  const selectedPlayer = playerSourceSelect.value;
+  const iframeCode = ep.players[selectedPlayer];
+
+  if (!iframeCode) {
+    alert('Нет ссылки для этого плеера.');
+    return;
+  }
+  
+  const m = iframeCode.match(/src="([^"]+)"/);
+  const url = m ? m[1] : window.location.href; // Если не нашли src, копируем адрес страницы
+  navigator.clipboard?.writeText(url).then(()=> alert('Ссылка на видео скопирована!'), ()=> alert('Не удалось скопировать ссылку'));
 });
 
 document.getElementById('themeBtn').addEventListener('click', ()=>{
@@ -716,12 +764,13 @@ document.addEventListener('keydown', (e)=> {
   }
 });
 
+// --- ИНИЦИАЛИЗАЦИЯ ПРИ ЗАГРУЗКЕ СТРАНИЦЫ ---
+loadEpisodesFromStorage(); // Загружаем данные из localStorage или initial
 renderList();
 renderModalTable();
-loadEpisode(0);
+loadEpisode(0); // Загружаем первую (самую новую) серию
 
 </script>
 </body>
 
 </html>
-
