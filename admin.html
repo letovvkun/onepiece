@@ -60,6 +60,8 @@
     background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
     box-shadow: 0 12px 40px rgba(0,0,0,0.7);
     backdrop-filter: blur(14px) saturate(1.05);
+    /* Изначально скрываем панель */
+    display: none;
   }
 
   header.top{
@@ -260,159 +262,169 @@
 <script>
 document.addEventListener('DOMContentLoaded', () => {
 
-    const initialEpisodes = [
-      { id:1128, title: "Эпизод 1128", date:"2025-08-10", quality:"1080p", thumb:"https://storage.donatty.com/d17ea7f6-5bbb-42be-97a9-dbba46b93cc8/cover_b7dce2b45b7afcef804ec3b61333f53d.jpg", players: { dzen: `<iframe width="480" height="270" src="https://dzen.ru/embed/o30Zzym4IAAA?from_block=partner&from=zen&mute=0&autoplay=0&tv=0" allow="autoplay; fullscreen; accelerometer; gyroscope; picture-in-picture; encrypted-media" data-testid="embed-iframe" frameborder="0" scrolling="no" allowfullscreen></iframe>`, mega: '', kodik: ''} },
-      { id:1127, title: "Эпизод 1127", date:"2025-08-03", quality:"1080p", thumb:"https://i.ibb.co/LzP144Q1/cover-b7dce2b45b7afcef804ec3b61333f53d-waifu2x-art-noise1-scale.png", players: { dzen: '', mega: '', kodik: `<iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ?rel=0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; picture-in-picture" allowfullscreen></iframe>`} },
-      { id:1126, title: "Эпизод 1126", date:"2025-07-27", quality:"1080p", thumb:"https://i.ibb.co/LzP144Q1/cover-b7dce2b45b7afcef804ec3b61333f53d-waifu2x-art-noise1-scale.png", players: { dzen: '', mega: `<iframe src="https://www.youtube.com/embed/5qap5aO4i9A?rel=0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; picture-in-picture" allowfullscreen></iframe>`, kodik: ''} },
-    ];
+    // --- НАЧАЛО БЛОКА АУТЕНТИФИКАЦИИ ---
 
-    const STORAGE_KEY = 'onePieceAdminEpisodes';
+    function initializeAdminPanel() {
+        const initialEpisodes = [
+          { id:1128, title: "Эпизод 1128", date:"2025-08-10", quality:"1080p", thumb:"https://storage.donatty.com/d17ea7f6-5bbb-42be-97a9-dbba46b93cc8/cover_b7dce2b45b7afcef804ec3b61333f53d.jpg", players: { dzen: `<iframe width="480" height="270" src="https://dzen.ru/embed/o30Zzym4IAAA?from_block=partner&from=zen&mute=0&autoplay=0&tv=0" allow="autoplay; fullscreen; accelerometer; gyroscope; picture-in-picture; encrypted-media" data-testid="embed-iframe" frameborder="0" scrolling="no" allowfullscreen></iframe>`, mega: '', kodik: ''} },
+          { id:1127, title: "Эпизод 1127", date:"2025-08-03", quality:"1080p", thumb:"https://i.ibb.co/LzP144Q1/cover-b7dce2b45b7afcef804ec3b61333f53d-waifu2x-art-noise1-scale.png", players: { dzen: '', mega: '', kodik: `<iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ?rel=0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; picture-in-picture" allowfullscreen></iframe>`} },
+          { id:1126, title: "Эпизод 1126", date:"2025-07-27", quality:"1080p", thumb:"https://i.ibb.co/LzP144Q1/cover-b7dce2b45b7afcef804ec3b61333f53d-waifu2x-art-noise1-scale.png", players: { dzen: '', mega: `<iframe src="https://www.youtube.com/embed/5qap5aO4i9A?rel=0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; picture-in-picture" allowfullscreen></iframe>`, kodik: ''} },
+        ];
 
-    let episodes = [];
+        const STORAGE_KEY = 'onePieceAdminEpisodes';
+        let episodes = [];
 
-    // --- DOM Элементы ---
-    const tableBody = document.getElementById('episodesTableBody');
-    const modal = document.getElementById('editModal');
-    const form = document.getElementById('episodeForm');
-    const modalTitle = document.getElementById('modalTitle');
-    const addEpisodeBtn = document.getElementById('addEpisodeBtn');
-    const closeModalBtn = document.getElementById('closeModal');
-    const cancelBtn = document.getElementById('cancelBtn');
-    const editIndexInput = document.getElementById('editIndex');
+        const tableBody = document.getElementById('episodesTableBody');
+        const modal = document.getElementById('editModal');
+        const form = document.getElementById('episodeForm');
+        const modalTitle = document.getElementById('modalTitle');
+        const addEpisodeBtn = document.getElementById('addEpisodeBtn');
+        const closeModalBtn = document.getElementById('closeModal');
+        const cancelBtn = document.getElementById('cancelBtn');
+        const editIndexInput = document.getElementById('editIndex');
 
-    // --- Функции ---
-
-    function saveEpisodes() {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(episodes));
-    }
-
-    function loadEpisodes() {
-        const stored = localStorage.getItem(STORAGE_KEY);
-        if (stored) {
-            episodes = JSON.parse(stored);
-        } else {
-            episodes = initialEpisodes;
-            saveEpisodes();
+        function saveEpisodes() {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(episodes));
         }
-    }
 
-    function renderTable() {
-        tableBody.innerHTML = '';
-        if (episodes.length === 0) {
-            tableBody.innerHTML = `<tr><td colspan="4" style="text-align:center;padding:2rem;">Серий пока нет. Нажмите "Добавить серию", чтобы начать.</td></tr>`;
-            return;
-        }
-        
-        // Сортируем серии по ID в порядке убывания
-        const sortedEpisodes = [...episodes].sort((a, b) => b.id - a.id);
-
-        sortedEpisodes.forEach(ep => {
-            const index = episodes.findIndex(item => item.id === ep.id); // Находим оригинальный индекс
-            const tr = document.createElement('tr');
-            tr.innerHTML = `
-                <td><strong>${ep.id}</strong></td>
-                <td>${ep.title}</td>
-                <td>${ep.date}</td>
-                <td class="action-cell">
-                    <button class="btn edit-btn" data-index="${index}">Изменить</button>
-                    <button class="btn danger-btn delete-btn" data-index="${index}">Удалить</button>
-                </td>
-            `;
-            tableBody.appendChild(tr);
-        });
-    }
-
-    function openModal(index = -1) {
-        form.reset();
-        editIndexInput.value = index;
-        if (index > -1) {
-            // Редактирование
-            modalTitle.textContent = "Редактировать серию";
-            const ep = episodes[index];
-            document.getElementById('ep-id').value = ep.id;
-            document.getElementById('ep-title').value = ep.title;
-            document.getElementById('ep-date').value = ep.date;
-            document.getElementById('ep-thumb').value = ep.thumb || '';
-            document.getElementById('ep-iframe-dzen').value = ep.players.dzen || '';
-            document.getElementById('ep-iframe-mega').value = ep.players.mega || '';
-            document.getElementById('ep-iframe-kodik').value = ep.players.kodik || '';
-        } else {
-            // Добавление
-            modalTitle.textContent = "Добавить новую серию";
-        }
-        modal.classList.add('open');
-        modal.setAttribute('aria-hidden', 'false');
-    }
-
-    function closeModal() {
-        modal.classList.remove('open');
-        modal.setAttribute('aria-hidden', 'true');
-    }
-
-    function handleFormSubmit(e) {
-        e.preventDefault();
-        const index = parseInt(editIndexInput.value, 10);
-        
-        const newEpisodeData = {
-            id: parseInt(document.getElementById('ep-id').value, 10),
-            title: document.getElementById('ep-title').value,
-            date: document.getElementById('ep-date').value,
-            thumb: document.getElementById('ep-thumb').value,
-            quality: "1080p", // Можно добавить поле в форму, если нужно
-            players: {
-                dzen: document.getElementById('ep-iframe-dzen').value,
-                mega: document.getElementById('ep-iframe-mega').value,
-                kodik: document.getElementById('ep-iframe-kodik').value
-            }
-        };
-
-        if (index > -1) {
-            // Обновляем существующий
-            episodes[index] = newEpisodeData;
-        } else {
-            // Добавляем новый
-            episodes.push(newEpisodeData);
-        }
-        
-        saveEpisodes();
-        renderTable();
-        closeModal();
-    }
-
-    // --- Обработчики событий ---
-
-    addEpisodeBtn.addEventListener('click', () => openModal());
-
-    tableBody.addEventListener('click', (e) => {
-        if (e.target.classList.contains('edit-btn')) {
-            const index = e.target.getAttribute('data-index');
-            openModal(parseInt(index, 10));
-        }
-        if (e.target.classList.contains('delete-btn')) {
-            const index = e.target.getAttribute('data-index');
-            if (confirm(`Вы уверены, что хотите удалить "${episodes[index].title}"?`)) {
-                episodes.splice(index, 1);
+        function loadEpisodes() {
+            const stored = localStorage.getItem(STORAGE_KEY);
+            if (stored) {
+                episodes = JSON.parse(stored);
+            } else {
+                episodes = initialEpisodes;
                 saveEpisodes();
-                renderTable();
             }
         }
-    });
 
-    form.addEventListener('submit', handleFormSubmit);
-    closeModalBtn.addEventListener('click', closeModal);
-    cancelBtn.addEventListener('click', closeModal);
-    modal.addEventListener('click', (e) => {
-        if (e.target === modal) closeModal();
-    });
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && modal.classList.contains('open')) {
+        function renderTable() {
+            tableBody.innerHTML = '';
+            if (episodes.length === 0) {
+                tableBody.innerHTML = `<tr><td colspan="4" style="text-align:center;padding:2rem;">Серий пока нет. Нажмите "Добавить серию", чтобы начать.</td></tr>`;
+                return;
+            }
+            
+            const sortedEpisodes = [...episodes].sort((a, b) => b.id - a.id);
+
+            sortedEpisodes.forEach(ep => {
+                const index = episodes.findIndex(item => item.id === ep.id);
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td><strong>${ep.id}</strong></td>
+                    <td>${ep.title}</td>
+                    <td>${ep.date}</td>
+                    <td class="action-cell">
+                        <button class="btn edit-btn" data-index="${index}">Изменить</button>
+                        <button class="btn danger-btn delete-btn" data-index="${index}">Удалить</button>
+                    </td>
+                `;
+                tableBody.appendChild(tr);
+            });
+        }
+
+        function openModal(index = -1) {
+            form.reset();
+            editIndexInput.value = index;
+            if (index > -1) {
+                modalTitle.textContent = "Редактировать серию";
+                const ep = episodes[index];
+                document.getElementById('ep-id').value = ep.id;
+                document.getElementById('ep-title').value = ep.title;
+                document.getElementById('ep-date').value = ep.date;
+                document.getElementById('ep-thumb').value = ep.thumb || '';
+                document.getElementById('ep-iframe-dzen').value = ep.players.dzen || '';
+                document.getElementById('ep-iframe-mega').value = ep.players.mega || '';
+                document.getElementById('ep-iframe-kodik').value = ep.players.kodik || '';
+            } else {
+                modalTitle.textContent = "Добавить новую серию";
+            }
+            modal.classList.add('open');
+            modal.setAttribute('aria-hidden', 'false');
+        }
+
+        function closeModal() {
+            modal.classList.remove('open');
+            modal.setAttribute('aria-hidden', 'true');
+        }
+
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            const index = parseInt(editIndexInput.value, 10);
+            
+            const newEpisodeData = {
+                id: parseInt(document.getElementById('ep-id').value, 10),
+                title: document.getElementById('ep-title').value,
+                date: document.getElementById('ep-date').value,
+                thumb: document.getElementById('ep-thumb').value,
+                quality: "1080p",
+                players: {
+                    dzen: document.getElementById('ep-iframe-dzen').value,
+                    mega: document.getElementById('ep-iframe-mega').value,
+                    kodik: document.getElementById('ep-iframe-kodik').value
+                }
+            };
+
+            if (index > -1) {
+                episodes[index] = newEpisodeData;
+            } else {
+                episodes.push(newEpisodeData);
+            }
+            
+            saveEpisodes();
+            renderTable();
             closeModal();
         }
-    });
 
-    // --- Инициализация ---
-    loadEpisodes();
-    renderTable();
+        addEpisodeBtn.addEventListener('click', () => openModal());
+
+        tableBody.addEventListener('click', (e) => {
+            if (e.target.classList.contains('edit-btn')) {
+                const index = e.target.getAttribute('data-index');
+                openModal(parseInt(index, 10));
+            }
+            if (e.target.classList.contains('delete-btn')) {
+                const index = e.target.getAttribute('data-index');
+                if (confirm(`Вы уверены, что хотите удалить "${episodes[index].title}"?`)) {
+                    episodes.splice(index, 1);
+                    saveEpisodes();
+                    renderTable();
+                }
+            }
+        });
+
+        form.addEventListener('submit', handleFormSubmit);
+        closeModalBtn.addEventListener('click', closeModal);
+        cancelBtn.addEventListener('click', closeModal);
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeModal();
+        });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal.classList.contains('open')) {
+                closeModal();
+            }
+        });
+
+        loadEpisodes();
+        renderTable();
+    }
+
+    function authenticate() {
+        // !!! ВАЖНО: Замените "admin123" на свой надежный пароль !!!
+        const CORRECT_PASSWORD = "admin123"; 
+
+        const enteredPassword = prompt("Введите пароль для доступа к панели:");
+
+        if (enteredPassword === CORRECT_PASSWORD) {
+            document.querySelector('.wrap').style.display = 'block';
+            initializeAdminPanel();
+        } else {
+            alert("Неверный пароль. Доступ запрещен.");
+            document.body.innerHTML = `<h1 style="text-align: center; margin-top: 5rem; font-family: Inter, sans-serif;">Доступ запрещен</h1>`;
+        }
+    }
+
+    authenticate();
+    // --- КОНЕЦ БЛОКА АУТЕНТИФИКАЦИИ ---
 
 });
 </script>
