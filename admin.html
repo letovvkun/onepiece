@@ -259,21 +259,13 @@
   </div>
 </div>
 
+<script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-firestore.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', () => {
 
     // --- НАЧАЛО БЛОКА АУТЕНТИФИКАЦИИ ---
-
     function initializeAdminPanel() {
-        const initialEpisodes = [
-          { id:1128, title: "Эпизод 1128", date:"2025-08-10", quality:"1080p", thumb:"https://storage.donatty.com/d17ea7f6-5bbb-42be-97a9-dbba46b93cc8/cover_b7dce2b45b7afcef804ec3b61333f53d.jpg", players: { dzen: `<iframe width="480" height="270" src="https://dzen.ru/embed/o30Zzym4IAAA?from_block=partner&from=zen&mute=0&autoplay=0&tv=0" allow="autoplay; fullscreen; accelerometer; gyroscope; picture-in-picture; encrypted-media" data-testid="embed-iframe" frameborder="0" scrolling="no" allowfullscreen></iframe>`, mega: '', kodik: ''} },
-          { id:1127, title: "Эпизод 1127", date:"2025-08-03", quality:"1080p", thumb:"https://i.ibb.co/LzP144Q1/cover-b7dce2b45b7afcef804ec3b61333f53d-waifu2x-art-noise1-scale.png", players: { dzen: '', mega: '', kodik: `<iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ?rel=0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; picture-in-picture" allowfullscreen></iframe>`} },
-          { id:1126, title: "Эпизод 1126", date:"2025-07-27", quality:"1080p", thumb:"https://i.ibb.co/LzP144Q1/cover-b7dce2b45b7afcef804ec3b61333f53d-waifu2x-art-noise1-scale.png", players: { dzen: '', mega: `<iframe src="https://www.youtube.com/embed/5qap5aO4i9A?rel=0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; picture-in-picture" allowfullscreen></iframe>`, kodik: ''} },
-        ];
-
-        const STORAGE_KEY = 'onePieceAdminEpisodes';
-        let episodes = [];
-
         const tableBody = document.getElementById('episodesTableBody');
         const modal = document.getElementById('editModal');
         const form = document.getElementById('episodeForm');
@@ -281,20 +273,26 @@ document.addEventListener('DOMContentLoaded', () => {
         const addEpisodeBtn = document.getElementById('addEpisodeBtn');
         const closeModalBtn = document.getElementById('closeModal');
         const cancelBtn = document.getElementById('cancelBtn');
-        const editIndexInput = document.getElementById('editIndex');
+        const editDocIdInput = document.createElement('input'); // Используем скрытый input для ID документа
+        editDocIdInput.type = 'hidden';
+        editDocIdInput.id = 'editDocId';
+        form.appendChild(editDocIdInput);
 
-        function saveEpisodes() {
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(episodes));
-        }
+        const db = firebase.firestore();
+        let episodes = [];
 
+        // Получение и рендеринг данных в реальном времени
         function loadEpisodes() {
-            const stored = localStorage.getItem(STORAGE_KEY);
-            if (stored) {
-                episodes = JSON.parse(stored);
-            } else {
-                episodes = initialEpisodes;
-                saveEpisodes();
-            }
+            db.collection('episodes').onSnapshot((querySnapshot) => {
+                episodes = [];
+                querySnapshot.forEach((doc) => {
+                    episodes.push({
+                        ...doc.data(),
+                        docId: doc.id
+                    });
+                });
+                renderTable();
+            });
         }
 
         function renderTable() {
@@ -306,35 +304,36 @@ document.addEventListener('DOMContentLoaded', () => {
             
             const sortedEpisodes = [...episodes].sort((a, b) => b.id - a.id);
 
-            sortedEpisodes.forEach(ep => {
-                const index = episodes.findIndex(item => item.id === ep.id);
+            sortedEpisodes.forEach((ep) => {
                 const tr = document.createElement('tr');
                 tr.innerHTML = `
                     <td><strong>${ep.id}</strong></td>
                     <td>${ep.title}</td>
                     <td>${ep.date}</td>
                     <td class="action-cell">
-                        <button class="btn edit-btn" data-index="${index}">Изменить</button>
-                        <button class="btn danger-btn delete-btn" data-index="${index}">Удалить</button>
+                        <button class="btn edit-btn" data-doc-id="${ep.docId}">Изменить</button>
+                        <button class="btn danger-btn delete-btn" data-doc-id="${ep.docId}">Удалить</button>
                     </td>
                 `;
                 tableBody.appendChild(tr);
             });
         }
 
-        function openModal(index = -1) {
+        function openModal(docId = null) {
             form.reset();
-            editIndexInput.value = index;
-            if (index > -1) {
+            editDocIdInput.value = docId || '';
+            if (docId) {
                 modalTitle.textContent = "Редактировать серию";
-                const ep = episodes[index];
-                document.getElementById('ep-id').value = ep.id;
-                document.getElementById('ep-title').value = ep.title;
-                document.getElementById('ep-date').value = ep.date;
-                document.getElementById('ep-thumb').value = ep.thumb || '';
-                document.getElementById('ep-iframe-dzen').value = ep.players.dzen || '';
-                document.getElementById('ep-iframe-mega').value = ep.players.mega || '';
-                document.getElementById('ep-iframe-kodik').value = ep.players.kodik || '';
+                const ep = episodes.find(item => item.docId === docId);
+                if (ep) {
+                    document.getElementById('ep-id').value = ep.id;
+                    document.getElementById('ep-title').value = ep.title;
+                    document.getElementById('ep-date').value = ep.date;
+                    document.getElementById('ep-thumb').value = ep.thumb || '';
+                    document.getElementById('ep-iframe-dzen').value = ep.players.dzen || '';
+                    document.getElementById('ep-iframe-mega').value = ep.players.mega || '';
+                    document.getElementById('ep-iframe-kodik').value = ep.players.kodik || '';
+                }
             } else {
                 modalTitle.textContent = "Добавить новую серию";
             }
@@ -347,9 +346,9 @@ document.addEventListener('DOMContentLoaded', () => {
             modal.setAttribute('aria-hidden', 'true');
         }
 
-        function handleFormSubmit(e) {
+        async function handleFormSubmit(e) {
             e.preventDefault();
-            const index = parseInt(editIndexInput.value, 10);
+            const docId = editDocIdInput.value;
             
             const newEpisodeData = {
                 id: parseInt(document.getElementById('ep-id').value, 10),
@@ -363,32 +362,46 @@ document.addEventListener('DOMContentLoaded', () => {
                     kodik: document.getElementById('ep-iframe-kodik').value
                 }
             };
-
-            if (index > -1) {
-                episodes[index] = newEpisodeData;
-            } else {
-                episodes.push(newEpisodeData);
-            }
             
-            saveEpisodes();
-            renderTable();
-            closeModal();
+            try {
+                if (docId) {
+                    await db.collection('episodes').doc(docId).set(newEpisodeData);
+                    console.log("Документ обновлен!");
+                } else {
+                    await db.collection('episodes').add(newEpisodeData);
+                    console.log("Документ добавлен!");
+                }
+                closeModal();
+            } catch (error) {
+                console.error("Ошибка при работе с Firestore: ", error);
+                alert("Ошибка при сохранении данных. Проверьте консоль.");
+            }
+        }
+        
+        async function handleDelete(docId) {
+            const episodeToDelete = episodes.find(ep => ep.docId === docId);
+            if (!episodeToDelete) return;
+
+            if (confirm(`Вы уверены, что хотите удалить "${episodeToDelete.title}"?`)) {
+                try {
+                    await db.collection('episodes').doc(docId).delete();
+                    console.log("Документ успешно удален!");
+                } catch (error) {
+                    console.error("Ошибка при удалении документа: ", error);
+                    alert("Ошибка при удалении. Проверьте консоль.");
+                }
+            }
         }
 
         addEpisodeBtn.addEventListener('click', () => openModal());
 
         tableBody.addEventListener('click', (e) => {
+            const docId = e.target.getAttribute('data-doc-id');
             if (e.target.classList.contains('edit-btn')) {
-                const index = e.target.getAttribute('data-index');
-                openModal(parseInt(index, 10));
+                openModal(docId);
             }
             if (e.target.classList.contains('delete-btn')) {
-                const index = e.target.getAttribute('data-index');
-                if (confirm(`Вы уверены, что хотите удалить "${episodes[index].title}"?`)) {
-                    episodes.splice(index, 1);
-                    saveEpisodes();
-                    renderTable();
-                }
+                handleDelete(docId);
             }
         });
 
@@ -404,13 +417,12 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        loadEpisodes();
-        renderTable();
+        loadEpisodes(); // Запускаем загрузку данных из Firebase при инициализации
     }
 
     function authenticate() {
         // !!! ВАЖНО: Замените "haimlZ80#BujgV" на свой надежный пароль !!!
-        const CORRECT_PASSWORD = "haimlZ80#BujgV"; 
+        const CORRECT_PASSWORD = "haimlZ80#BujgV";
 
         const enteredPassword = prompt("Введите пароль для доступа к панели:");
 
@@ -423,12 +435,26 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // Инициализация Firebase и Firestore
+    const firebaseConfig = {
+      apiKey: "AIzaSyBE1AkNd3bPGPr3ZPUbtqNUd2WDCB2SHHw",
+      authDomain: "letovshiyori.firebaseapp.com",
+      projectId: "letovshiyori",
+      storageBucket: "letovshiyori.firebasestorage.app",
+      messagingSenderId: "379203362104",
+      appId: "1:379203362104:web:20235be9bbbbfdbd6df5cd"
+    };
+    
+    // Инициализация Firebase
+    const app = firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+
     authenticate();
     // --- КОНЕЦ БЛОКА АУТЕНТИФИКАЦИИ ---
-
 });
 </script>
 </body>
 </html>
+
 
 
