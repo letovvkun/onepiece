@@ -112,7 +112,6 @@
   // --- FIREBASE: Импорт необходимых функций ---
   import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js";
   import { getFirestore, collection, doc, getDocs, setDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore.js";
-  // ИЗМЕНЕНО: Добавляем импорты для Аутентификации
   import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-auth.js";
 
 
@@ -129,19 +128,20 @@
   // --- FIREBASE: Инициализация ---
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
-  // ИЗМЕНЕНО: Инициализируем сервис Аутентификации
   const auth = getAuth(app);
   const episodesCollection = collection(db, 'episodes');
 
   // --- ЛОГИКА АУТЕНТИФИКАЦИИ ---
   document.addEventListener('DOMContentLoaded', () => {
 
+    // ИЗМЕНЕНО: Создаем константу для разрешенного email
+    const ALLOWED_EMAIL = 'musiclandbrd21@gmail.com';
+
     const loginScreen = document.getElementById('login-screen');
     const loginBtn = document.getElementById('loginBtn');
     const mainWrap = document.querySelector('.wrap');
-    let adminPanelInitialized = false; // Флаг, чтобы избежать повторной инициализации
+    let adminPanelInitialized = false;
 
-    // Функция входа через Google
     const signIn = () => {
         const provider = new GoogleAuthProvider();
         signInWithPopup(auth, provider)
@@ -156,22 +156,33 @@
     // Главный наблюдатель за состоянием аутентификации
     onAuthStateChanged(auth, user => {
         if (user) {
-            // Пользователь вошел в систему
-            console.log("Пользователь вошел:", user.displayName);
-            loginScreen.style.display = 'none';
-            mainWrap.style.display = 'block';
+            // Пользователь вошел в систему, теперь проверяем его email
+            
+            // ИЗМЕНЕНО: Проверка на соответствие email из "белого списка"
+            if (user.email === ALLOWED_EMAIL) {
+                // ДОСТУП РАЗРЕШЕН
+                console.log("Доступ разрешен для администратора:", user.email);
+                loginScreen.style.display = 'none';
+                mainWrap.style.display = 'block';
 
-            // Инициализируем панель только один раз
-            if (!adminPanelInitialized) {
-                initializeAdminPanel();
-                adminPanelInitialized = true;
+                if (!adminPanelInitialized) {
+                    initializeAdminPanel();
+                    adminPanelInitialized = true;
+                }
+            } else {
+                // ДОСТУП ЗАПРЕЩЕН
+                console.warn("Попытка входа с неразрешенного аккаунта:", user.email);
+                alert('Доступ запрещен. У вас нет прав для входа в эту панель.');
+                // Принудительно выходим из системы
+                signOut(auth);
             }
+            
         } else {
             // Пользователь вышел из системы или не заходил
             console.log("Пользователь не в системе.");
             loginScreen.style.display = 'flex';
             mainWrap.style.display = 'none';
-            adminPanelInitialized = false; // Сбрасываем флаг при выходе
+            adminPanelInitialized = false;
         }
     });
 
@@ -186,17 +197,15 @@
         const closeModalBtn = document.getElementById('closeModal');
         const cancelBtn = document.getElementById('cancelBtn');
         const editIdInput = document.getElementById('editId');
-        // НОВОЕ: Находим кнопку выхода
         const logoutBtn = document.getElementById('logoutBtn');
 
-        // НОВОЕ: Функция выхода
         const logOut = () => {
             signOut(auth).catch(error => console.error("Ошибка выхода:", error));
         };
         logoutBtn.addEventListener('click', logOut);
 
 
-        async function loadEpisodes() { /* ... ваш код loadEpisodes без изменений ... */
+        async function loadEpisodes() {
             tableBody.innerHTML = `<tr><td colspan="4" style="text-align:center;padding:2rem;">Загрузка серий...</td></tr>`;
             try {
                 const querySnapshot = await getDocs(episodesCollection);
@@ -211,7 +220,7 @@
             }
         }
 
-        function renderTable() { /* ... ваш код renderTable без изменений ... */
+        function renderTable() {
             tableBody.innerHTML = '';
             if (episodes.length === 0) {
                 tableBody.innerHTML = `<tr><td colspan="4" style="text-align:center;padding:2rem;">Серий пока нет. Нажмите "Добавить серию", чтобы начать.</td></tr>`;
@@ -232,7 +241,7 @@
             });
         }
 
-        function openModal(episodeId = null) { /* ... ваш код openModal без изменений ... */
+        function openModal(episodeId = null) {
             form.reset();
             document.getElementById('ep-id').readOnly = false;
             editIdInput.value = episodeId || '';
@@ -257,12 +266,12 @@
             modal.setAttribute('aria-hidden', 'false');
         }
 
-        function closeModal() { /* ... ваш код closeModal без изменений ... */
+        function closeModal() {
             modal.classList.remove('open');
             modal.setAttribute('aria-hidden', 'true');
         }
 
-        async function handleFormSubmit(e) { /* ... ваш код handleFormSubmit без изменений ... */
+        async function handleFormSubmit(e) {
             e.preventDefault();
             const episodeIdValue = document.getElementById('ep-id').value;
             if (!episodeIdValue) {
@@ -294,7 +303,7 @@
 
         addEpisodeBtn.addEventListener('click', () => openModal());
 
-        tableBody.addEventListener('click', async (e) => { /* ... ваш код обработчика кликов по таблице без изменений ... */
+        tableBody.addEventListener('click', async (e) => {
             const target = e.target;
             const episodeId = target.getAttribute('data-id');
             if (target.classList.contains('edit-btn')) {
@@ -323,7 +332,6 @@
         loadEpisodes();
     }
     
-    // УДАЛЕНО: Старая функция authenticate() больше не нужна.
   });
 </script>
 </body>
