@@ -558,219 +558,226 @@
     </div>
   </div>
 
-<script>
-// --- ОБНОВЛЕННАЯ СТРУКТУРА ДАННЫХ ---
-const initialEpisodes = [
-  { id: 1138, title: "Эпизод 1138", date:"2025-10-19", quality:"1080p", thumb:"https://i.ibb.co/LzP144Q1/cover-b7dce2b45b7afcef804ec3b61333f53d-waifu2x-art-noise1-scale.png", players: { dzen: `<iframe width="480" height="270" src="https://dzen.ru/embed/o30Zzym4IAAA?from_block=partner&from=zen&mute=0&autoplay=0&tv=0" allow="autoplay; fullscreen; accelerometer; gyroscope; picture-in-picture; encrypted-media" frameborder="0" scrolling="no" allowfullscreen></iframe>`, mega: '', kodik: ''} },
-  { id: 1137, title: "Эпизод 1137", date:"2025-10-12", quality:"1080p", thumb:"https://i.ibb.co/LzP144Q1/cover-b7dce2b45b7afcef804ec3b61333f53d-waifu2x-art-noise1-scale.png", players: { dzen: `<iframe width="480" height="270" src="https://dzen.ru/embed/o30ZMym4IAAA?from_block=partner&from=zen&mute=0&autoplay=0&tv=0" allow="autoplay; fullscreen; accelerometer; gyroscope; picture-in-picture; encrypted-media" frameborder="0" scrolling="no" allowfullscreen></iframe>`, mega: '', kodik: ''} },
-  { id: 1136, title: "Эпизод 1136", date:"2025-10-05", quality:"1080p", thumb:"https://i.ibb.co/LzP144Q1/cover-b7dce2b45b7afcef804ec3b61333f53d-waifu2x-art-noise1-scale.png", players: { dzen: `<iframe width="480" height="270" src="https://dzen.ru/embed/o30Ydym4IAAA?from_block=partner&from=zen&mute=0&autoplay=0&tv=0" allow="autoplay; fullscreen; accelerometer; gyroscope; picture-in-picture; encrypted-media" frameborder="0" scrolling="no" allowfullscreen></iframe>`, mega: '', kodik: ''} },
-  { id: 1135, title: "Эпизод 1135", date:"2025-09-28", quality:"1080p", thumb:"https://i.ibb.co/LzP144Q1/cover-b7dce2b45b7afcef804ec3b61333f53d-waifu2x-art-noise1-scale.png", players: { dzen: `<iframe width="480" height="270" src="https://dzen.ru/embed/o30b8yW4IAAA?from_block=partner&from=zen&mute=0&autoplay=0&tv=0" allow="autoplay; fullscreen; accelerometer; gyroscope; picture-in-picture; encrypted-media" frameborder="0" scrolling="no" allowfullscreen></iframe>`, mega: '', kodik: ''} },
-  { id: 1134, title: "Эпизод 1134", date:"2025-09-21", quality:"1080p", thumb:"https://i.ibb.co/LzP144Q1/cover-b7dce2b45b7afcef804ec3b61333f53d-waifu2x-art-noise1-scale.png", players: { dzen: `<iframe width="480" height="270" src="https://dzen.ru/embed/o30bqyW4IAAA?from_block=partner&from=zen&mute=0&autoplay=0&tv=0" allow="autoplay; fullscreen; accelerometer; gyroscope; picture-in-picture; encrypted-media" frameborder="0" scrolling="no" allowfullscreen></iframe>`, mega: '', kodik: ''} },
-  { id: 1133, title: "Эпизод 1133", date:"2025-09-14", quality:"1080p", thumb:"https://i.ibb.co/LzP144Q1/cover-b7dce2b45b7afcef804ec3b61333f53d-waifu2x-art-noise1-scale.png", players: { dzen: `<iframe width="480" height="270" src="https://dzen.ru/embed/o30bMyW4IAAA?from_block=partner&from=zen&mute=0&autoplay=0&tv=0" allow="autoplay; fullscreen; accelerometer; gyroscope; picture-in-picture; encrypted-media" frameborder="0" scrolling="no" allowfullscreen></iframe>`, mega: '', kodik: ''} },
-  { id: 1132, title: "Эпизод 1132", date:"2025-09-07", quality:"1080p", thumb:"https://i.ibb.co/LzP144Q1/cover-b7dce2b45b7afcef804ec3b61333f53d-waifu2x-art-noise1-scale.png", players: { dzen: `<iframe width="480" height="270" src="https://dzen.ru/embed/o30avyW4IAAA?from_block=partner&from=zen&mute=0&autoplay=0&tv=0" allow="autoplay; fullscreen; accelerometer; gyroscope; picture-in-picture; encrypted-media" frameborder="0" scrolling="no" allowfullscreen></iframe>`, mega: '', kodik: ''} },
-  { id: 1131, title: "Эпизод 1131", date:"2025-08-31", quality:"1080p", thumb:"https://i.ibb.co/LzP144Q1/cover-b7dce2b45b7afcef804ec3b61333f53d-waifu2x-art-noise1-scale.png", players: { dzen: `<iframe width="480" height="270" src="https://dzen.ru/embed/o30Z-yW4IAAA?from_block=partner&from=zen&mute=0&autoplay=0&tv=0" allow="autoplay; fullscreen; accelerometer; gyroscope; picture-in-picture; encrypted-media" frameborder="0" scrolling="no" allowfullscreen></iframe>`, mega: '', kodik: ''} },
-  { id: 1130, title: "Эпизод 1130", date:"2025-08-24", quality:"1080p", thumb:"https://i.ibb.co/LzP144Q1/cover-b7dce2b45b7afcef804ec3b61333f53d-waifu2x-art-noise1-scale.png", players: { dzen: `<iframe width="480" height="270" src="https://dzen.ru/embed/o30ZgyW4IAAA?from_block=partner&from=zen&mute=0&autoplay=0&tv=0" allow="autoplay; fullscreen; accelerometer; gyroscope; picture-in-picture; encrypted-media" frameborder="0" scrolling="no" allowfullscreen></iframe>`, mega: '', kodik: ''} },
-  { id: 1129, title: "Эпизод 1129", date:"2025-08-17", quality:"1080p", thumb:"https://i.ibb.co/LzP144Q1/cover-b7dce2b45b7afcef804ec3b61333f53d-waifu2x-art-noise1-scale.png", players: { dzen: `<iframe width="480" height="270" src="https://dzen.ru/embed/o30ZTyW4IAAA?from_block=partner&from=zen&mute=0&autoplay=0&tv=0" allow="autoplay; fullscreen; accelerometer; gyroscope; picture-in-picture; encrypted-media" frameborder="0" scrolling="no" allowfullscreen></iframe>`, mega: '', kodik: ''} },
-  { id: 1128, title: "Эпизод 1128", date:"2025-08-10", quality:"1080p", thumb:"https://i.ibb.co/LzP144Q1/cover-b7dce2b45b7afcef804ec3b61333f53d-waifu2x-art-noise1-scale.png", players: { dzen: `<iframe width="480" height="270" src="https://dzen.ru/embed/o30b3yG4IAAA?from_block=partner&from=zen&mute=0&autoplay=0&tv=0" allow="autoplay; fullscreen; accelerometer; gyroscope; picture-in-picture; encrypted-media" frameborder="0" scrolling="no" allowfullscreen></iframe>`, mega: '', kodik: ''} },
-];
+<script type="module">
+  // --- FIREBASE: Импорт необходимых функций ---
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js";
+  import { getFirestore, collection, getDocs, orderBy, query } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore.js";
 
-const STORAGE_KEY = 'onePieceAdminEpisodes'; // Ключ для localStorage
-let episodes = [];
+  // --- FIREBASE: Ваша конфигурация ---
+  const firebaseConfig = {
+    apiKey: "AIzaSyBE1AkNd3bPGPr3ZPUbtqNUd2WDCB2SHHw",
+    authDomain: "letovshiyori.firebaseapp.com",
+    projectId: "letovshiyori",
+    storageBucket: "letovshiyori.appspot.com",
+    messagingSenderId: "379203362104",
+    appId: "1:379203362104:web:20235be9bbbbfdbd6df5cd"
+  };
 
-let currentIndex = 0;
-let autoNext = false;
+  // --- FIREBASE: Инициализация ---
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+  const episodesCollection = collection(db, 'episodes');
 
-const episodesGrid = document.getElementById('episodesGrid');
-const playerEmbed = document.getElementById('playerEmbed');
-const playerTitle = document.getElementById('playerTitle');
-const playerSub = document.getElementById('playerSub');
-const metaText = document.getElementById('metaText');
-const search = document.getElementById('search');
-const allBtn = document.getElementById('allBtn');
-const modal = document.getElementById('modal');
-const allTbody = document.getElementById('allTbody');
-const modalSearch = document.getElementById('modalSearch');
-const playerSourceSelect = document.getElementById('playerSource');
+  // --- ЛОКАЛЬНЫЙ КЕШ ДЛЯ РАБОТЫ С СЕРИЯМИ
+  let episodes = [];
+  let currentIndex = 0;
+  let allEpisodesLoaded = false;
 
-function loadEpisodesFromStorage() {
-    const stored = localStorage.getItem(STORAGE_KEY);
-    // Загружаем из localStorage, если там что-то есть. Иначе используем initialEpisodes.
-    episodes = stored ? JSON.parse(stored) : initialEpisodes;
-    // Сортируем по ID в порядке убывания при загрузке
-    episodes.sort((a, b) => b.id - a.id);
-}
-
-
-function renderList(filter = ''){
-  episodesGrid.innerHTML = '';
-  const term = filter.trim().toLowerCase();
-  // Используем отсортированный массив
-  episodes.forEach((ep, idx) => {
-    if(term && !(ep.title.toLowerCase().includes(term) || String(ep.id).includes(term))) return;
-    const el = document.createElement('div');
-    el.className = 'ep';
-    el.tabIndex = 0;
-    el.setAttribute('role','button');
-    el.innerHTML = `
-      <div class="thumb" aria-hidden="true">
-        ${ ep.thumb ? `<img src="${ep.thumb}" alt="" style="width:100%;height:100%;object-fit:cover">` : `EP ${ep.id}` }
-      </div>
-      <div class="meta">
-        <div class="t">${ep.title}</div>
-        <div class="s">${ep.date} • ${ep.quality}</div>
-      </div>
-    `;
-    // Привязываем событие к оригинальному индексу в неотсортированном массиве
-    el.onclick = ()=> loadEpisode(idx);
-    el.onkeypress = (e)=> { if(e.key === 'Enter') loadEpisode(idx) };
-    episodesGrid.appendChild(el);
-  });
-  markActive();
-}
-
-// --- ИЗМЕНЕННАЯ ФУНКЦИЯ ЗАГРУЗКИ ---
-function loadEpisode(idx, autoplay=false){
-  if(idx < 0 || idx >= episodes.length) return;
-  currentIndex = idx;
-  const ep = episodes[idx];
-  const selectedPlayer = playerSourceSelect.value; // Получаем текущий выбранный плеер
-
-  // Получаем iframe для выбранного плеера
-  const iframeCode = ep.players[selectedPlayer];
-
-  if (iframeCode) {
-    playerEmbed.innerHTML = iframeCode;
-  } else {
-    // Если для этого плеера нет iframe, показываем сообщение
-    playerEmbed.innerHTML = `<span>Для этого источника (${selectedPlayer.toUpperCase()}) видео не найдено.</span>`;
-  }
-  
-  playerTitle.textContent = ep.title;
-  playerSub.textContent = `${ep.date} • ${ep.quality}`;
-  metaText.textContent = `EP ${ep.id} • Загружено: ${ep.date}`;
-  markActive();
-}
+  const episodesGrid = document.getElementById('episodesGrid');
+  const playerEmbed = document.getElementById('playerEmbed');
+  const playerTitle = document.getElementById('playerTitle');
+  const playerSub = document.getElementById('playerSub');
+  const metaText = document.getElementById('metaText');
+  const search = document.getElementById('search');
+  const allBtn = document.getElementById('allBtn');
+  const modal = document.getElementById('modal');
+  const allTbody = document.getElementById('allTbody');
+  const modalSearch = document.getElementById('modalSearch');
+  const playerSourceSelect = document.getElementById('playerSource');
+  const themeBtn = document.getElementById('themeBtn');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const pipBtn = document.getElementById('pipBtn');
+  const shareBtn = document.getElementById('shareBtn');
+  const closeModalBtn = document.getElementById('closeModal');
+  const toggleAllBtn = document.getElementById('toggleAll');
 
 
-function markActive(){
-  const nodes = Array.from(episodesGrid.children);
-  nodes.forEach((n,i)=>{
-    if(i === currentIndex) n.classList.add('active'); else n.classList.remove('active');
-  });
-}
+  // --- FIREBASE: Переписанная функция загрузки данных ---
+  async function loadEpisodes() {
+    episodesGrid.innerHTML = '<div style="text-align:center;padding:2rem;width:100%">Загрузка серий...</div>';
+    try {
+      // Создаем запрос с сортировкой по ID в порядке убывания
+      const q = query(episodesCollection, orderBy("id", "desc"));
+      const querySnapshot = await getDocs(q);
 
-document.getElementById('prevBtn').addEventListener('click', ()=> {
-  if(currentIndex > 0) loadEpisode(currentIndex - 1, true);
-});
-document.getElementById('nextBtn').addEventListener('click', ()=> {
-  if(currentIndex < episodes.length - 1) loadEpisode(currentIndex + 1, true);
-});
+      episodes = []; // Очищаем локальный кеш
+      querySnapshot.forEach((doc) => {
+        episodes.push({ firestoreId: doc.id, ...doc.data() });
+      });
 
-// --- ДОБАВЛЕНА ЛОГИКА СМЕНЫ ПЛЕЕРА ---
-playerSourceSelect.addEventListener('change', () => {
-    // Просто перезагружаем текущий эпизод, функция сама подхватит нужный iframe
-    loadEpisode(currentIndex);
-});
-
-document.getElementById('pipBtn').addEventListener('click', async ()=>{
-  try{
-    const ifr = playerEmbed.querySelector('iframe');
-    if(!ifr) throw new Error('Нет iframe для PIP');
-    alert('PIP может работать только для встроенных видео/видео того же источника. Попробуй на YouTube кнопку «Картинка в картинке» в контекстном меню плеера.');
-  }catch(e){
-    console.warn(e);
-    alert('PIP недоступен для этого источника.');
-  }
-});
-
-search.addEventListener('input', (e)=> renderList(e.target.value));
-
-allBtn.addEventListener('click', ()=> openModal());
-function openModal(){
-  renderModalTable('');
-  modal.classList.add('open');
-  modal.setAttribute('aria-hidden','false');
-  modalSearch.focus();
-}
-document.getElementById('closeModal').addEventListener('click', closeModal);
-modal.addEventListener('click', (e)=> { if(e.target === modal) closeModal(); });
-function closeModal(){
-  modal.classList.remove('open');
-  modal.setAttribute('aria-hidden','true');
-}
-
-function renderModalTable(filter=''){
-  allTbody.innerHTML = '';
-  const q = filter.trim().toLowerCase();
-  episodes.forEach((ep, idx)=>{
-    if(q && !(String(ep.id).includes(q) || ep.title.toLowerCase().includes(q))) return;
-    const tr = document.createElement('tr');
-    tr.innerHTML = `
-      <td style="width:70px"><strong>${ep.id}</strong></td>
-      <td>${ep.title}</td>
-      <td style="width:120px">${ep.date}</td>
-      <td style="width:80px">${ep.quality}</td>
-      <td class="action-cell"><button class="btn" data-idx="${idx}">Смотреть</button></td>
-    `;
-    allTbody.appendChild(tr);
-  });
-  Array.from(allTbody.querySelectorAll('button')).forEach(b=>{
-    b.onclick = ()=> {
-      const idx = Number(b.getAttribute('data-idx'));
-      loadEpisode(idx);
-      closeModal();
-      // Прокрутка к элементу в списке
-      const targetElement = episodesGrid.children[idx];
-      if (targetElement) {
-        targetElement.scrollIntoView({behavior:'smooth', block:'center'});
+      allEpisodesLoaded = true;
+      renderList();
+      renderModalTable();
+      if (episodes.length > 0) {
+        // Загружаем самую новую серию
+        loadEpisode(0);
+      } else {
+        playerEmbed.innerHTML = `<span>Серии пока не добавлены.</span>`;
+        playerTitle.textContent = 'Нет доступных серий';
+        playerSub.textContent = '';
+        metaText.textContent = '';
       }
-    };
+    } catch (error) {
+      console.error("Ошибка при загрузке серий из Firestore: ", error);
+      episodesGrid.innerHTML = `<div style="text-align:center;padding:2rem;width:100%;color:var(--accent-c);">Ошибка загрузки данных. Проверьте консоль.</div>`;
+    }
+  }
+
+
+  function renderList(filter = '') {
+    episodesGrid.innerHTML = '';
+    const term = filter.trim().toLowerCase();
+    episodes.forEach((ep, idx) => {
+      if (term && !(ep.title.toLowerCase().includes(term) || String(ep.id).includes(term))) return;
+      const el = document.createElement('div');
+      el.className = 'ep';
+      el.tabIndex = 0;
+      el.setAttribute('role', 'button');
+      el.innerHTML = `
+        <div class="thumb" aria-hidden="true">
+          ${ep.thumb ? `<img src="${ep.thumb}" alt="" style="width:100%;height:100%;object-fit:cover">` : `EP ${ep.id}`}
+        </div>
+        <div class="meta">
+          <div class="t">${ep.title}</div>
+          <div class="s">${ep.date} • ${ep.quality}</div>
+        </div>
+      `;
+      el.onclick = () => loadEpisode(idx);
+      el.onkeypress = (e) => { if (e.key === 'Enter') loadEpisode(idx) };
+      episodesGrid.appendChild(el);
+    });
+    markActive();
+  }
+
+
+  function loadEpisode(idx, autoplay = false) {
+    if (idx < 0 || idx >= episodes.length) return;
+    currentIndex = idx;
+    const ep = episodes[idx];
+    const selectedPlayer = playerSourceSelect.value;
+    const iframeCode = ep.players[selectedPlayer];
+
+    if (iframeCode) {
+      // Вставляем iframe, если он существует
+      playerEmbed.innerHTML = iframeCode;
+    } else {
+      playerEmbed.innerHTML = `<span>Для плеера "${selectedPlayer.toUpperCase()}" видео не найдено.</span>`;
+    }
+
+    playerTitle.textContent = ep.title;
+    playerSub.textContent = `${ep.date} • ${ep.quality}`;
+    metaText.textContent = `EP ${ep.id} • Загружено: ${ep.date}`;
+    markActive();
+  }
+
+
+  function markActive() {
+    const nodes = Array.from(episodesGrid.children);
+    nodes.forEach((n, i) => {
+      if (i === currentIndex) n.classList.add('active'); else n.classList.remove('active');
+    });
+  }
+
+
+  function openModal() {
+    renderModalTable('');
+    modal.classList.add('open');
+    modal.setAttribute('aria-hidden', 'false');
+    modalSearch.focus();
+  }
+  function closeModal() {
+    modal.classList.remove('open');
+    modal.setAttribute('aria-hidden', 'true');
+  }
+
+
+  function renderModalTable(filter = '') {
+    allTbody.innerHTML = '';
+    const q = filter.trim().toLowerCase();
+    episodes.forEach((ep, idx) => {
+      if (q && !(String(ep.id).includes(q) || ep.title.toLowerCase().includes(q))) return;
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td style="width:70px"><strong>${ep.id}</strong></td>
+        <td>${ep.title}</td>
+        <td style="width:120px">${ep.date}</td>
+        <td style="width:80px">${ep.quality}</td>
+        <td class="action-cell"><button class="btn" data-idx="${idx}">Смотреть</button></td>
+      `;
+      allTbody.appendChild(tr);
+    });
+    Array.from(allTbody.querySelectorAll('button')).forEach(b => {
+      b.onclick = () => {
+        const idx = Number(b.getAttribute('data-idx'));
+        loadEpisode(idx);
+        closeModal();
+        const targetElement = episodesGrid.children[idx];
+        if (targetElement) {
+          targetElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      };
+    });
+  }
+
+
+  // --- ОБРАБОТЧИКИ СОБЫТИЙ ---
+  prevBtn.addEventListener('click', () => {
+    if (currentIndex < episodes.length - 1) loadEpisode(currentIndex + 1, true);
   });
-}
-modalSearch.addEventListener('input', (e)=> renderModalTable(e.target.value));
+  nextBtn.addEventListener('click', () => {
+    if (currentIndex > 0) loadEpisode(currentIndex - 1, true);
+  });
+  playerSourceSelect.addEventListener('change', () => loadEpisode(currentIndex));
+  pipBtn.addEventListener('click', () => {
+    const ifr = playerEmbed.querySelector('iframe');
+    if (!ifr) return alert('PIP недоступен для этого источника.');
+    // Тут можно добавить логику для PIP, но она зависит от конкретного плеера
+    alert('PIP может работать только для встроенных видео. Попробуй кнопку в плеере.');
+  });
+  search.addEventListener('input', (e) => renderList(e.target.value));
+  allBtn.addEventListener('click', openModal);
+  closeModalBtn.addEventListener('click', closeModal);
+  modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+  modalSearch.addEventListener('input', (e) => renderModalTable(e.target.value));
+  modalSearch.addEventListener('keydown', (e) => { if (e.key === 'Enter') renderModalTable(e.target.value); });
+  shareBtn.addEventListener('click', () => {
+    const ep = episodes[currentIndex];
+    if (!ep) return alert('Эпизод не выбран');
+    const selectedPlayer = playerSourceSelect.value;
+    const iframeCode = ep.players[selectedPlayer];
+    if (!iframeCode) return alert('Нет ссылки для этого плеера.');
+    const m = iframeCode.match(/src="([^"]+)"/);
+    const url = m ? m[1] : window.location.href;
+    navigator.clipboard?.writeText(url).then(() => alert('Ссылка на видео скопирована!'), () => alert('Не удалось скопировать ссылку'));
+  });
+  themeBtn.addEventListener('click', () => {
+    const body = document.body;
+    const currentTheme = body.getAttribute('data-theme') || 'dark';
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    body.setAttribute('data-theme', newTheme);
+  });
+  toggleAllBtn.addEventListener('click', openModal);
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.classList.contains('open')) closeModal();
+  });
 
-modalSearch.addEventListener('keydown',(e)=>{ if(e.key === 'Enter') { const q=e.target.value; renderModalTable(q); } });
-
-document.getElementById('shareBtn').addEventListener('click', ()=>{
-  const ep = episodes[currentIndex];
-  if(!ep) return alert('Эпизод не выбран');
-  
-  const selectedPlayer = playerSourceSelect.value;
-  const iframeCode = ep.players[selectedPlayer];
-
-  if (!iframeCode) {
-    alert('Нет ссылки для этого плеера.');
-    return;
-  }
-  
-  const m = iframeCode.match(/src="([^"]+)"/);
-  const url = m ? m[1] : window.location.href; // Если не нашли src, копируем адрес страницы
-  navigator.clipboard?.writeText(url).then(()=> alert('Ссылка на видео скопирована!'), ()=> alert('Не удалось скопировать ссылку'));
-});
-
-document.getElementById('themeBtn').addEventListener('click', ()=>{
-  const body = document.body;
-  const currentTheme = body.getAttribute('data-theme') || 'dark';
-  const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-  body.setAttribute('data-theme', newTheme);
-});
-
-
-document.getElementById('toggleAll').addEventListener('click', openModal);
-
-document.addEventListener('keydown', (e)=> {
-  if(e.key === 'Escape') {
-    if(modal.classList.contains('open')) closeModal();
-  }
-});
-
-// --- ИНИЦИАЛИЗАЦИЯ ПРИ ЗАГРУЗКЕ СТРАНИЦЫ ---
-loadEpisodesFromStorage(); // Загружаем данные из localStorage или initial
-renderList();
-renderModalTable();
-loadEpisode(0); // Загружаем первую (самую новую) серию
-
+  // --- ИНИЦИАЛИЗАЦИЯ ПРИ ЗАГРУЗКЕ СТРАНИЦЫ ---
+  document.addEventListener('DOMContentLoaded', () => {
+    loadEpisodes();
+  });
 </script>
 </body>
 
 </html>
+
