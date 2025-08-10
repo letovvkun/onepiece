@@ -71,6 +71,8 @@
     gap: 12px;
     align-items: center;
     padding: 1rem;
+    width: 100%;
+    justify-content: center;
   }
   
   a.btn {
@@ -362,14 +364,15 @@
       padding: 8px 12px;
     }
     .wrap {
-      margin-top: 220px;
+      margin-top: 220px; /* ИЗМЕНЕНО: было 220px, оставил, т.к. значение хорошее */
     }
   }
 
   @media (max-width: 767px) {
     .wrap {
       padding: 16px;
-      margin: 200px auto 1rem;
+      /* ИЗМЕНЕНО: увеличен отступ, чтобы кнопки не накладывались на текст */
+      margin: 220px auto 1rem; 
     }
 
     .site-banner {
@@ -378,8 +381,18 @@
     
     .social-links-bar {
       top: 130px;
-      flex-wrap: wrap;
+      flex-wrap: nowrap; /* ИЗМЕНЕНО: Запрещаем перенос кнопок, чтобы они были в ряд */
       justify-content: center;
+      overflow-x: auto; /* Добавляем прокрутку, если не помещаются */
+      padding-bottom: 10px; /* Отступ для полосы прокрутки */
+    }
+
+    /* ИЗМЕНЕНО: Убираем увеличение для кнопки "Донатик" на мобильных, чтобы все были одного размера */
+    .btn.special-btn {
+      transform: scale(1);
+    }
+    .btn.special-btn:hover {
+      transform: translateY(-3px) scale(1.02); /* Немного уменьшил эффект при наведении для мобильных */
     }
 
     header.top {
@@ -488,8 +501,7 @@
           <div style="display:flex;gap:8px;align-items:center">
             <button id="prevBtn" class="btn">◀ Назад</button>
             <button id="nextBtn" class="btn">Вперёд ▶</button>
-            <button id="pipBtn" class="btn">PIP</button>
-          </div>
+            </div>
         </div>
         
         <div class="player-select-wrapper">
@@ -526,6 +538,9 @@
         https://t.me/boost/maxletovv_dub
         <br>
         https://www.tiktok.com/@max.letovv_dub</div>
+        <div style="margin-top: 12px;">
+            <button id="copyrightBtn" class="btn ghost">Для правообладателей</button>
+        </div>
       </aside>
     </section>
 
@@ -555,6 +570,22 @@
         </thead>
         <tbody id="allTbody"></tbody>
       </table>
+    </div>
+  </div>
+
+  <div id="copyrightModal" class="modal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal-card" role="document">
+        <div class="modal-header">
+            <h2 style="margin:0">Информация для правообладателей</h2>
+            <button id="closeCopyrightModal" class="btn">Закрыть</button>
+        </div>
+        <div style="color: var(--muted); font-size: 14px; line-height: 1.6;">
+            <p>Данный сайт является исключительно информационным и демонстрационным проектом.</p>
+            <p>Все права на аудио и видеоматериалы, представленные на сайте, принадлежат их законным правообладателям. Мы не претендуем на авторство и не извлекаем коммерческую выгоду из их использования.</p>
+            <p>Весь контент (видеофайлы) размещен на сторонних ресурсах и встроен в плеер с помощью технологии iframe. Наш сайт не хранит никаких нелегальных материалов, а лишь предоставляет ссылки на них.</p>
+            <p>Если вы являетесь правообладателем и считаете, что ваши права были нарушены, пожалуйста, свяжитесь с нами по электронной почте. Мы готовы оперативно рассмотреть ваш запрос и удалить спорные материалы.</p>
+            <p><strong>Почта для связи:</strong> <a href="mailto:letovvkun@proton.me" style="color: var(--accent-c);">letovvkun@proton.me</a></p>
+        </div>
     </div>
   </div>
 
@@ -597,10 +628,15 @@
   const themeBtn = document.getElementById('themeBtn');
   const prevBtn = document.getElementById('prevBtn');
   const nextBtn = document.getElementById('nextBtn');
-  const pipBtn = document.getElementById('pipBtn');
+  // const pipBtn = document.getElementById('pipBtn'); // УДАЛЕНО
   const shareBtn = document.getElementById('shareBtn');
   const closeModalBtn = document.getElementById('closeModal');
   const toggleAllBtn = document.getElementById('toggleAll');
+
+  // --- ДОБАВЛЕНЫ ЭЛЕМЕНТЫ ДЛЯ НОВОГО МОДАЛЬНОГО ОКНА ---
+  const copyrightBtn = document.getElementById('copyrightBtn');
+  const copyrightModal = document.getElementById('copyrightModal');
+  const closeCopyrightModalBtn = document.getElementById('closeCopyrightModal');
 
 
   // --- FIREBASE: Переписанная функция загрузки данных ---
@@ -739,12 +775,9 @@
     if (currentIndex > 0) loadEpisode(currentIndex - 1, true);
   });
   playerSourceSelect.addEventListener('change', () => loadEpisode(currentIndex));
-  pipBtn.addEventListener('click', () => {
-    const ifr = playerEmbed.querySelector('iframe');
-    if (!ifr) return alert('PIP недоступен для этого источника.');
-    // Тут можно добавить логику для PIP, но она зависит от конкретного плеера
-    alert('PIP может работать только для встроенных видео. Попробуй кнопку в плеере.');
-  });
+  
+  // -- ОБРАБОТЧИК КНОПКИ PIP УДАЛЕН --
+  
   search.addEventListener('input', (e) => renderList(e.target.value));
   allBtn.addEventListener('click', openModal);
   closeModalBtn.addEventListener('click', closeModal);
@@ -768,8 +801,33 @@
     body.setAttribute('data-theme', newTheme);
   });
   toggleAllBtn.addEventListener('click', openModal);
+
+  // --- ДОБАВЛЕНЫ ОБРАБОТЧИКИ ДЛЯ НОВОГО МОДАЛЬНОГО ОКНА ---
+  copyrightBtn.addEventListener('click', () => {
+    copyrightModal.classList.add('open');
+    copyrightModal.setAttribute('aria-hidden', 'false');
+  });
+  closeCopyrightModalBtn.addEventListener('click', () => {
+    copyrightModal.classList.remove('open');
+    copyrightModal.setAttribute('aria-hidden', 'true');
+  });
+  copyrightModal.addEventListener('click', (e) => {
+    if (e.target === copyrightModal) {
+      copyrightModal.classList.remove('open');
+      copyrightModal.setAttribute('aria-hidden', 'true');
+    }
+  });
+
+
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && modal.classList.contains('open')) closeModal();
+    if (e.key === 'Escape') {
+      if (modal.classList.contains('open')) closeModal();
+      // Добавлена проверка для нового модального окна
+      if (copyrightModal.classList.contains('open')) {
+          copyrightModal.classList.remove('open');
+          copyrightModal.setAttribute('aria-hidden', 'true');
+      }
+    }
   });
 
   // --- ИНИЦИАЛИЗАЦИЯ ПРИ ЗАГРУЗКЕ СТРАНИЦЫ ---
@@ -780,9 +838,3 @@
 </body>
 
 </html>
-
-
-
-
-
-
