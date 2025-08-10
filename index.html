@@ -7,833 +7,844 @@
 <link rel="icon" href="data:," />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --bg-1: #1a1a1a;
-    --bg-2: #121212;
-    --glass-bg: rgba(255,255,255,0.03);
-    --card: rgba(255,255,255,0.04);
-    --accent-a: #444;
-    --accent-b: #222;
-    --accent-c: #ffb86b;
-    --muted: rgba(234, 234, 234, 0.6);
-    --text: #eaeaea;
-    --radius: 16px;
-    --glass-strong: rgba(255,255,255,0.06);
-  }
-  [data-theme="light"]{
-    --bg-1:#f3f7fb;
-    --bg-2:#e6eef6;
-    --glass-bg: rgba(11,27,43,0.04);
-    --card: rgba(11,27,43,0.06);
-    --accent-a:#006cff;
-    --accent-b:#00b37e;
-    --accent-c:#ff7b2d;
-    --muted: rgba(11,27,43,0.6);
-    --text:#071025;
-    --glass-strong: rgba(11,27,43,0.04);
-  }
+  :root{
+    --bg-1: #1a1a1a;
+    --bg-2: #121212;
+    --glass-bg: rgba(255,255,255,0.03);
+    --card: rgba(255,255,255,0.04);
+    --accent-a: #444;
+    --accent-b: #222;
+    --accent-c: #ffb86b;
+    --muted: rgba(234, 234, 234, 0.6);
+    --text: #eaeaea;
+    --radius: 16px;
+    --glass-strong: rgba(255,255,255,0.06);
+  }
+  [data-theme="light"]{
+    --bg-1:#f3f7fb;
+    --bg-2:#e6eef6;
+    --glass-bg: rgba(11,27,43,0.04);
+    --card: rgba(11,27,43,0.06);
+    --accent-a:#006cff;
+    --accent-b:#00b37e;
+    --accent-c:#ff7b2d;
+    --muted: rgba(11,27,43,0.6);
+    --text:#071025;
+    --glass-strong: rgba(11,27,43,0.04);
+  }
 
-  *{box-sizing:border-box}
-  html{scroll-behavior:smooth}
-  body{
-    min-height:100vh;
-    margin:0;
-    font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-    color:var(--text);
-    background: radial-gradient(1000px at 15% 15%, rgba(255, 255, 255, 0.05), transparent 40%),
-                radial-gradient(800px at 85% 85%, rgba(255, 255, 255, 0.03), transparent 50%),
-                linear-gradient(180deg,var(--bg-1), var(--bg-2));
-    -webkit-font-smoothing:antialiased;
-    -moz-osx-font-smoothing:grayscale;
-    padding:0;
-  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    min-height:100vh;
+    margin:0;
+    font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    color:var(--text);
+    background: radial-gradient(1000px at 15% 15%, rgba(255, 255, 255, 0.05), transparent 40%),
+                radial-gradient(800px at 85% 85%, rgba(255, 255, 255, 0.03), transparent 50%),
+                linear-gradient(180deg,var(--bg-1), var(--bg-2));
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    padding:0;
+  }
 
-  .site-banner {
-    width: 100%;
-    height: 400px;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 0;
-    background: url('https://i.imghippo.com/files/DS3641jXk.jpg') no-repeat center center;
-    background-size: cover;
-    mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 60%, rgba(0,0,0,0) 100%);
-    -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 60%, rgba(0,0,0,0) 100%);
-  }
-  
-  .social-links-bar {
-    position: absolute;
-    top: 190px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 2;
-    display: flex;
-    gap: 12px;
-    align-items: center;
-    padding: 1rem;
-    width: 100%;
-    justify-content: center;
-  }
-  
-  a.btn {
-    text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .btn.special-btn {
-    background: var(--accent-c);
-    color: var(--bg-1);
-    font-weight: 800;
-    border-color: transparent;
-    transform: scale(1.05);
-  }
-  .btn.special-btn:hover {
-    box-shadow: 0 8px 25px rgba(255, 184, 107, 0.3);
-    transform: translateY(-3px) scale(1.08);
-  }
+  .site-banner {
+    width: 100%;
+    height: 400px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    background: url('https://i.imghippo.com/files/DS3641jXk.jpg') no-repeat center center;
+    background-size: cover;
+    mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 60%, rgba(0,0,0,0) 100%);
+    -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 60%, rgba(0,0,0,0) 100%);
+  }
+  
+  .social-links-bar {
+    position: absolute;
+    top: 190px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    padding: 1rem;
+    width: 100%;
+    justify-content: center;
+  }
+  
+  a.btn {
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .btn.special-btn {
+    background: var(--accent-c);
+    color: var(--bg-1);
+    font-weight: 800;
+    border-color: transparent;
+    transform: scale(1.05);
+  }
+  .btn.special-btn:hover {
+    box-shadow: 0 8px 25px rgba(255, 184, 107, 0.3);
+    transform: translateY(-3px) scale(1.08);
+  }
 
-  .wrap{
-    width:100%;
-    max-width:1200px;
-    margin: 250px auto 2rem;
-    border-radius:22px;
-    position:relative;
-    z-index: 1;
-    padding:28px;
-    overflow:hidden;
-    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-    box-shadow: 0 12px 40px rgba(0,0,0,0.7);
-    backdrop-filter: blur(14px) saturate(1.05);
-  }
+  .wrap{
+    width:100%;
+    max-width:1200px;
+    margin: 250px auto 2rem;
+    border-radius:22px;
+    position:relative;
+    z-index: 1;
+    padding:28px;
+    overflow:hidden;
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    box-shadow: 0 12px 40px rgba(0,0,0,0.7);
+    backdrop-filter: blur(14px) saturate(1.05);
+  }
 
-  .hero-glow{
-    position:absolute;
-    left:50%;
-    transform:translateX(-50%);
-    top:-80px;
-    width:88%;
-    height:320px;
-    pointer-events:none;
-    filter: blur(46px) saturate(1.2);
-    background: radial-gradient(closest-side, rgba(255, 255, 255, 0.06), transparent 70%);
-    border-radius:40%;
-    z-index:0;
-    opacity:0.95;
-  }
+  .hero-glow{
+    position:absolute;
+    left:50%;
+    transform:translateX(-50%);
+    top:-80px;
+    width:88%;
+    height:320px;
+    pointer-events:none;
+    filter: blur(46px) saturate(1.2);
+    background: radial-gradient(closest-side, rgba(255, 255, 255, 0.06), transparent 70%);
+    border-radius:40%;
+    z-index:0;
+    opacity:0.95;
+  }
 
-  header.top{
-    position:relative;
-    z-index:5;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:14px;
-    margin-bottom:18px;
-  }
-  .brand{
-    display:flex; gap:14px; align-items:center;
-  }
-  .logo-badge{
-    width:56px;height:56px;border-radius:12px;
-    background: linear-gradient(135deg,var(--accent-a), var(--accent-b));
-    display:flex;align-items:center;justify-content:center;
-    font-weight:800;
-    color:var(--text);
-    font-size:18px;
-    box-shadow: 0 8px 36px rgba(11,23,50,0.45);
-    flex-shrink: 0;
-  }
-  .brand .title{
-    line-height:1;
-  }
-  .brand h1{margin:0;font-size:20px;letter-spacing:0.2px;}
-  .brand p{margin:0;color:var(--muted); font-size:13px}
+  header.top{
+    position:relative;
+    z-index:5;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:14px;
+    margin-bottom:18px;
+  }
+  .brand{
+    display:flex; gap:14px; align-items:center;
+  }
+  .logo-badge{
+    width:56px;height:56px;border-radius:12px;
+    background: linear-gradient(135deg,var(--accent-a), var(--accent-b));
+    display:flex;align-items:center;justify-content:center;
+    font-weight:800;
+    color:var(--text);
+    font-size:18px;
+    box-shadow: 0 8px 36px rgba(11,23,50,0.45);
+    flex-shrink: 0;
+  }
+  .brand .title{
+    line-height:1;
+  }
+  .brand h1{margin:0;font-size:20px;letter-spacing:0.2px;}
+  .brand p{margin:0;color:var(--muted); font-size:13px}
 
-  .controls-top{display:flex;gap:8px;align-items:center}
-  .btn {
-    background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
-    border: 1px solid rgba(255,255,255,0.04);
-    padding:9px 14px;border-radius:12px;color:var(--text);
-    cursor:pointer;font-weight:600;font-size:13px;
-    backdrop-filter: blur(8px);
-    transition: transform .15s ease, box-shadow .15s;
-    white-space: nowrap;
-  }
-  .btn:hover{ transform:translateY(-3px); box-shadow: 0 10px 30px rgba(0,0,0,0.25); }
-  .btn.ghost{ background:transparent;border:1px solid rgba(255,255,255,0.06);}
+  .controls-top{display:flex;gap:8px;align-items:center}
+  .btn {
+    background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+    border: 1px solid rgba(255,255,255,0.04);
+    padding:9px 14px;border-radius:12px;color:var(--text);
+    cursor:pointer;font-weight:600;font-size:13px;
+    backdrop-filter: blur(8px);
+    transition: transform .15s ease, box-shadow .15s;
+    white-space: nowrap;
+  }
+  .btn:hover{ transform:translateY(-3px); box-shadow: 0 10px 30px rgba(0,0,0,0.25); }
+  .btn.ghost{ background:transparent;border:1px solid rgba(255,255,255,0.06);}
 
-  .hero{
-    display:grid; grid-template-columns: 1fr 360px; gap:22px; align-items:start;
-    position:relative; z-index:6;
-  }
+  .hero{
+    display:grid; grid-template-columns: 1fr 360px; gap:22px; align-items:start;
+    position:relative; z-index:6;
+  }
 
-  .player-card{
-    border-radius:18px;
-    padding:20px;
-    position:relative;
-    transform-style:preserve-3d;
-    background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
-    border:1px solid rgba(255,255,255,0.04);
-    box-shadow: 0 24px 60px rgba(2,6,23,0.6);
-    backdrop-filter: blur(12px) saturate(1.1);
-    transition: transform .25s ease;
-    overflow:visible;
-  }
+  .player-card{
+    border-radius:18px;
+    padding:20px;
+    position:relative;
+    transform-style:preserve-3d;
+    background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+    border:1px solid rgba(255,255,255,0.04);
+    box-shadow: 0 24px 60px rgba(2,6,23,0.6);
+    backdrop-filter: blur(12px) saturate(1.1);
+    transition: transform .25s ease;
+    overflow:visible;
+  }
 
-  .player-float{
-    position:absolute; inset: -24px -24px auto -24px; height:calc(100% + 48px);
-    pointer-events:none;
-    background: linear-gradient(120deg, rgba(255,255,255,0.05), rgba(255,255,255,0.04));
-    border-radius:22px;
-    filter: blur(28px);
-    z-index:-1;
-  }
+  .player-float{
+    position:absolute; inset: -24px -24px auto -24px; height:calc(100% + 48px);
+    pointer-events:none;
+    background: linear-gradient(120deg, rgba(255,255,255,0.05), rgba(255,255,255,0.04));
+    border-radius:22px;
+    filter: blur(28px);
+    z-index:-1;
+  }
 
-  .player-wrap{
-    width:100%;
-    border-radius:12px;
-    overflow:hidden;
-    display:block;
-    box-shadow: 0 10px 30px rgba(2,6,23,0.5);
-    transform-origin:center;
-    animation: levitate 6s ease-in-out infinite;
-  }
-  @keyframes levitate{
-    0%{ transform: translateY(0px) rotateZ(-0.2deg) }
-    50%{ transform: translateY(-10px) rotateZ(0.2deg) }
-    100%{ transform: translateY(0px) rotateZ(-0.2deg) }
-  }
+  .player-wrap{
+    width:100%;
+    border-radius:12px;
+    overflow:hidden;
+    display:block;
+    box-shadow: 0 10px 30px rgba(2,6,23,0.5);
+    transform-origin:center;
+    animation: levitate 6s ease-in-out infinite;
+  }
+  @keyframes levitate{
+    0%{ transform: translateY(0px) rotateZ(-0.2deg) }
+    50%{ transform: translateY(-10px) rotateZ(0.2deg) }
+    100%{ transform: translateY(0px) rotateZ(-0.2deg) }
+  }
 
-  .embed {
-    width:100%;
-    aspect-ratio: 16 / 9;
-    background: #000;
-    border-radius:10px;
-    overflow:hidden;
-    border: 1px solid rgba(255,255,255,0.03);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 14px;
-    color: var(--muted);
-  }
-  .embed iframe{ width:100%; height:100%; border:0; display:block; }
+  .embed {
+    width:100%;
+    aspect-ratio: 16 / 9;
+    background: #000;
+    border-radius:10px;
+    overflow:hidden;
+    border: 1px solid rgba(255,255,255,0.03);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    color: var(--muted);
+  }
+  .embed iframe{ width:100%; height:100%; border:0; display:block; }
 
-  .meta-card{
-    border-radius:14px;
-    padding:14px;
-    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-    border: 1px solid rgba(255,255,255,0.035);
-    backdrop-filter: blur(10px);
-  }
-  .meta-card h3{ margin:0 0 6px 0; font-size:15px }
-  .meta-row{ color:var(--muted); font-size:13px; margin-bottom:10px }
+  .meta-card{
+    border-radius:14px;
+    padding:14px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    border: 1px solid rgba(255,255,255,0.035);
+    backdrop-filter: blur(10px);
+  }
+  .meta-card h3{ margin:0 0 6px 0; font-size:15px }
+  .meta-row{ color:var(--muted); font-size:13px; margin-bottom:10px }
 
-  #player-controls { display:flex;justify-content:space-between;align-items:center;margin-top:12px; }
-  .player-title{ font-weight:700; font-size:16px; margin-top:8px; }
-  .player-sub{ color:var(--muted); font-size:13px; margin-top:4px; }
+  #player-controls { display:flex;justify-content:space-between;align-items:center;margin-top:12px; }
+  .player-title{ font-weight:700; font-size:16px; margin-top:8px; }
+  .player-sub{ color:var(--muted); font-size:13px; margin-top:4px; }
 
-  .nav-row{ display:flex; gap:8px; margin-top:12px; }
-  .pill{ display:inline-flex; gap:8px; align-items:center; padding:8px 10px; border-radius:999px; font-weight:600; font-size:13px; background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.03); cursor:pointer; }
-  
-  .player-select-wrapper {
-    margin-top: 16px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 13px;
-    color: var(--muted);
-  }
+  .nav-row{ display:flex; gap:8px; margin-top:12px; }
+  .pill{ display:inline-flex; gap:8px; align-items:center; padding:8px 10px; border-radius:999px; font-weight:600; font-size:13px; background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.03); cursor:pointer; }
+  
+  .player-select-wrapper {
+    margin-top: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    color: var(--muted);
+  }
 
-  .custom-select {
-    position: relative;
-    display: inline-block;
-  }
+  .custom-select {
+    position: relative;
+    display: inline-block;
+  }
 
-  .custom-select::after {
-    content: '▾';
-    position: absolute;
-    right: 12px;
-    top: 50%;
-    transform: translateY(-50%);
-    pointer-events: none;
-    color: var(--muted);
-    font-size: 16px;
-  }
+  .custom-select::after {
+    content: '▾';
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: var(--muted);
+    font-size: 16px;
+  }
 
-  .custom-select select {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
-    border: 1px solid rgba(255,255,255,0.04);
-    padding: 9px 32px 9px 14px;
-    border-radius: 12px;
-    color: var(--text);
-    cursor: pointer;
-    font-weight: 600;
-    font-size: 13px;
-    font-family: inherit;
-    min-width: 150px;
-  }
+  .custom-select select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+    border: 1px solid rgba(255,255,255,0.04);
+    padding: 9px 32px 9px 14px;
+    border-radius: 12px;
+    color: var(--text);
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 13px;
+    font-family: inherit;
+    min-width: 150px;
+  }
 
-  [data-theme="dark"] .custom-select option {
-      background: var(--bg-1);
-      color: var(--text);
-  }
+  [data-theme="dark"] .custom-select option {
+      background: var(--bg-1);
+      color: var(--text);
+  }
 
-  .playlist-area{
-    margin-top:20px;
-    display:flex;
-    gap:18px;
-    align-items:flex-start;
-    flex-wrap:wrap;
-  }
+  .playlist-area{
+    margin-top:20px;
+    display:flex;
+    gap:18px;
+    align-items:flex-start;
+    flex-wrap:wrap;
+  }
 
-  .left-list{ flex:1; min-width:300px }
-  .list-controls{ display:flex; gap:10px; align-items:center; margin-bottom:10px }
-  .search{
-    flex:1;
-    padding:10px 12px;border-radius:12px;border:1px solid rgba(255,255,255,0.04);
-    background:transparent;color:var(--text);font-size:14px;
-    outline:none;
-  }
-  .episodes-grid{
-    display:grid;
-    grid-template-columns: repeat(auto-fill,minmax(220px,1fr));
-    gap:12px;
-    max-height:340px;
-    overflow:auto;
-    padding:6px;
-  }
-  .ep{
-    display:flex; gap:12px; align-items:center;
-    padding:12px;border-radius:12px;
-    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-    border:1px solid rgba(255,255,255,0.03);
-    cursor:pointer; transition: transform .12s, box-shadow .12s;
-  }
-  .ep:hover{ transform: translateY(-6px); box-shadow: 0 16px 40px rgba(2,6,23,0.45); }
-  .ep .thumb{
-    width:96px;height:54px;border-radius:8px;background:#0b1720;display:flex;align-items:center;justify-content:center;color:var(--muted);font-weight:700;
-    flex-shrink:0; font-size:12px;
-    overflow:hidden;
-  }
-  .ep .meta{ display:flex;flex-direction:column; gap:6px }
-  .ep .meta .t{ font-weight:700; font-size:14px }
-  .ep .meta .s{ font-size:12px; color:var(--muted) }
+  .left-list{ flex:1; min-width:300px }
+  .list-controls{ display:flex; gap:10px; align-items:center; margin-bottom:10px }
+  .search{
+    flex:1;
+    padding:10px 12px;border-radius:12px;border:1px solid rgba(255,255,255,0.04);
+    background:transparent;color:var(--text);font-size:14px;
+    outline:none;
+  }
+  .episodes-grid{
+    display:grid;
+    grid-template-columns: repeat(auto-fill,minmax(220px,1fr));
+    gap:12px;
+    max-height:340px;
+    overflow:auto;
+    padding:6px;
+  }
+  .ep{
+    display:flex; gap:12px; align-items:center;
+    padding:12px;border-radius:12px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    border:1px solid rgba(255,255,255,0.03);
+    cursor:pointer; transition: transform .12s, box-shadow .12s;
+  }
+  .ep:hover{ transform: translateY(-6px); box-shadow: 0 16px 40px rgba(2,6,23,0.45); }
+  .ep .thumb{
+    width:96px;height:54px;border-radius:8px;background:#0b1720;display:flex;align-items:center;justify-content:center;color:var(--muted);font-weight:700;
+    flex-shrink:0; font-size:12px;
+    overflow:hidden;
+  }
+  .ep .meta{ display:flex;flex-direction:column; gap:6px }
+  .ep .meta .t{ font-weight:700; font-size:14px }
+  .ep .meta .s{ font-size:12px; color:var(--muted) }
 
-  .ep.active{
-    outline: 2px solid rgba(255,185,107,0.9);
-    box-shadow: 0 12px 40px rgba(255,177,107,0.06) inset;
-  }
+  .ep.active{
+    outline: 2px solid rgba(255,185,107,0.9);
+    box-shadow: 0 12px 40px rgba(255,177,107,0.06) inset;
+  }
 
-  .modal{
-    position:fixed; inset:0; display:none; align-items:center; justify-content:center; z-index:50;
-    background: linear-gradient(180deg, rgba(18,18,18,0.85), rgba(18,18,18,0.95));
-    backdrop-filter: blur(10px);
-  }
-  .modal.open{ display:flex; }
-  .modal-card{
-    width:90%; max-width:980px; max-height:80vh; overflow:auto; border-radius:14px; padding:18px;
-    background: var(--bg-1);
-    border:1px solid rgba(255,255,255,0.05);
-  }
-  .modal-header{ display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:12px }
-  .table{ width:100%; border-collapse:collapse; font-size:14px; color:var(--muted) }
-  .table th{ text-align:left; padding:8px 10px; color:var(--text); font-weight:700 }
-  .table td{ padding:8px 10px; border-top: 1px dashed rgba(255,255,255,0.04) }
-  .table .action-cell { width: 140px; text-align: right; }
+  .modal{
+    position:fixed; inset:0; display:none; align-items:center; justify-content:center; z-index:50;
+    background: linear-gradient(180deg, rgba(18,18,18,0.85), rgba(18,18,18,0.95));
+    backdrop-filter: blur(10px);
+  }
+  .modal.open{ display:flex; }
+  .modal-card{
+    width:90%; max-width:980px; max-height:80vh; overflow:auto; border-radius:14px; padding:18px;
+    background: var(--bg-1);
+    border:1px solid rgba(255,255,255,0.05);
+  }
+  .modal-header{ display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:12px }
+  .table{ width:100%; border-collapse:collapse; font-size:14px; color:var(--muted) }
+  .table th{ text-align:left; padding:8px 10px; color:var(--text); font-weight:700 }
+  .table td{ padding:8px 10px; border-top: 1px dashed rgba(255,255,255,0.04) }
+  .table .action-cell { width: 140px; text-align: right; }
 
-  footer.note{ margin-top:18px; color:var(--muted); font-size:13px; text-align:center }
+  footer.note{ margin-top:18px; color:var(--muted); font-size:13px; text-align:center }
 
-  @media (max-width:980px){
-    .hero{ grid-template-columns:1fr }
-    .meta-card{ order:2 }
-    .player-card{ order:1 }
-    .hero-glow{ top:-60px; height:220px }
-    .social-links-bar {
-      top: 150px;
-      padding: 0.5rem;
-      gap: 8px;
-    }
-    .social-links-bar .btn {
-      font-size: 12px;
-      padding: 8px 12px;
-    }
-    .wrap {
-      margin-top: 220px; /* ИЗМЕНЕНО: было 220px, оставил, т.к. значение хорошее */
-    }
-  }
+  @media (max-width:980px){
+    .hero{ grid-template-columns:1fr }
+    .meta-card{ order:2 }
+    .player-card{ order:1 }
+    .hero-glow{ top:-60px; height:220px }
+    .social-links-bar {
+      top: 150px;
+      padding: 0.5rem;
+      gap: 8px;
+    }
+    .social-links-bar .btn {
+      font-size: 12px;
+      padding: 8px 12px;
+    }
+    .wrap {
+      margin-top: 220px;
+    }
+  }
 
-  @media (max-width: 767px) {
-    .wrap {
-      padding: 16px;
-      /* ИЗМЕНЕНО: увеличен отступ, чтобы кнопки не накладывались на текст */
-      margin: 220px auto 1rem; 
-    }
+  @media (max-width: 767px) {
+    .wrap {
+      padding: 16px;
+      margin: 220px auto 1rem; 
+    }
 
-    .site-banner {
-      height: 300px;
-    }
-    
-    .social-links-bar {
-      top: 130px;
-      flex-wrap: nowrap; /* ИЗМЕНЕНО: Запрещаем перенос кнопок, чтобы они были в ряд */
-      justify-content: center;
-      overflow-x: auto; /* Добавляем прокрутку, если не помещаются */
-      padding-bottom: 10px; /* Отступ для полосы прокрутки */
-    }
+    .site-banner {
+      height: 300px;
+    }
+    
+    .social-links-bar {
+      top: 130px;
+      flex-wrap: nowrap;
+      justify-content: center;
+      overflow-x: auto;
+      padding-bottom: 10px;
+    }
 
-    /* ИЗМЕНЕНО: Убираем увеличение для кнопки "Донатик" на мобильных, чтобы все были одного размера */
-    .btn.special-btn {
-      transform: scale(1);
-    }
-    .btn.special-btn:hover {
-      transform: translateY(-3px) scale(1.02); /* Немного уменьшил эффект при наведении для мобильных */
-    }
+    .btn.special-btn {
+      transform: scale(1);
+    }
+    .btn.special-btn:hover {
+      transform: translateY(-3px) scale(1.02);
+    }
 
-    header.top {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 16px;
-    }
+    header.top {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 16px;
+    }
 
-    .brand h1 {
-      font-size: 18px;
-    }
+    .brand h1 {
+      font-size: 18px;
+    }
 
-    #player-controls {
-      flex-direction: column;
-      align-items: stretch;
-      gap: 12px;
-    }
-    #player-controls > div:last-child {
-        display: flex;
-        justify-content: space-between;
-        gap: 8px;
-    }
-    #player-controls .btn {
-        flex-grow: 1;
-        justify-content: center;
-    }
+    #player-controls {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 12px;
+    }
+    #player-controls > div:last-child {
+        display: flex;
+        justify-content: space-between;
+        gap: 8px;
+    }
+    #player-controls .btn {
+        flex-grow: 1;
+        justify-content: center;
+    }
 
-    .episodes-grid {
-      grid-template-columns: 1fr;
-    }
+    .episodes-grid {
+      grid-template-columns: 1fr;
+    }
 
-    .left-list {
-      min-width: 100%;
-    }
-    .list-controls {
-      flex-direction: column;
-      align-items: stretch;
-    }
+    .left-list {
+      min-width: 100%;
+    }
+    .list-controls {
+      flex-direction: column;
+      align-items: stretch;
+    }
 
-    .modal-card {
-      padding: 12px;
-    }
-    .modal-header {
-      flex-direction: column;
-      align-items: flex-start;
-    }
+    .modal-card {
+      padding: 12px;
+    }
+    .modal-header {
+      flex-direction: column;
+      align-items: flex-start;
+    }
 
-    #modalSearch {
-      width: 100%;
-    }
+    #modalSearch {
+      width: 100%;
+    }
 
-    .table th, .table td {
-        font-size: 12px;
-        padding: 8px 4px;
-    }
-    
-    .table th:nth-child(2), .table td:nth-child(2) {
-      max-width: 120px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-    .table .action-cell { width: auto; }
-  }
+    .table th, .table td {
+        font-size: 12px;
+        padding: 8px 4px;
+    }
+    
+    .table th:nth-child(2), .table td:nth-child(2) {
+      max-width: 120px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .table .action-cell { width: auto; }
+  }
 
 </style>
 </head>
 <body data-theme="dark">
 
-  <div class="site-banner" role="banner"></div>
+  <div class="site-banner" role="banner"></div>
 
-  <nav class="social-links-bar">
-    <a href="https://t.me/maxletovv_dub" target="_blank" rel="noopener noreferrer" class="btn">Telegram</a>
-    <a href="https://www.tiktok.com/@max.letovv_dub" target="_blank" rel="noopener noreferrer" class="btn">TikTok</a>
-    <a href="https://donatty.com/onepiece_letovshiyori" target="_blank" rel="noopener noreferrer" class="btn special-btn">Донатик <3</a>
-  </nav>
+  <nav class="social-links-bar">
+    <a href="https://t.me/maxletovv_dub" target="_blank" rel="noopener noreferrer" class="btn">Telegram</a>
+    <a href="https://www.tiktok.com/@max.letovv_dub" target="_blank" rel="noopener noreferrer" class="btn">TikTok</a>
+    <a href="https://donatty.com/onepiece_letovshiyori" target="_blank" rel="noopener noreferrer" class="btn special-btn">Донатик <3</a>
+  </nav>
 
-  <div class="wrap" role="main" aria-label="One Piece — озвучка">
-    <div class="hero-glow" aria-hidden="true"></div>
+  <div class="wrap" role="main" aria-label="One Piece — озвучка">
+    <div class="hero-glow" aria-hidden="true"></div>
 
-    <header class="top">
-      <div class="brand">
-        <div class="logo-badge">ML</div>
-        <div class="title">
-          <h1>Ван-Пис в озвучке Макс Летов & ShiYori</h1>
-          <p>Новая серия каждое воскресенье!</p>
-        </div>
-      </div>
-      <div class="controls-top">
-        <button id="themeBtn" class="btn ghost" title="Переключить тему">Тема</button>
-        <button id="allBtn" class="btn" title="Показать все серии">Все серии ▾</button>
-      </div>
-    </header>
+    <header class="top">
+      <div class="brand">
+        <div class="logo-badge">ML</div>
+        <div class="title">
+          <h1>Ван-Пис в озвучке Макс Летов & ShiYori</h1>
+          <p>Новая серия каждое воскресенье!</p>
+        </div>
+      </div>
+      <div class="controls-top">
+        <button id="themeBtn" class="btn ghost" title="Переключить тему">Тема</button>
+        <button id="allBtn" class="btn" title="Показать все серии">Все серии ▾</button>
+      </div>
+    </header>
 
-    <section class="hero" aria-labelledby="playerTitle">
-      <div class="player-card" role="region" aria-label="Плеер">
-        <div class="player-float" aria-hidden="true"></div>
-        <div class="player-wrap">
-          <div id="playerEmbed" class="embed" aria-live="polite"></div>
-        </div>
-        <div id="player-controls">
-          <div>
-            <div id="playerTitle" class="player-title">Загрузка...</div>
-            <div id="playerSub" class="player-sub">—</div>
-          </div>
-          <div style="display:flex;gap:8px;align-items:center">
-            <button id="prevBtn" class="btn">◀ Назад</button>
-            <button id="nextBtn" class="btn">Вперёд ▶</button>
-            </div>
-        </div>
-        
-        <div class="player-select-wrapper">
-          <label for="playerSource">Выбор плеера:</label>
-          <div class="custom-select">
-            <select id="playerSource" name="playerSource">
-              <option value="dzen" selected>Dzen</option>
-              <option value="mega">MEGA</option>
-              <option value="kodik">Kodik</option>
-            </select>
-          </div>
-        </div>
+    <section class="hero" aria-labelledby="playerTitle">
+      <div class="player-card" role="region" aria-label="Плеер">
+        <div class="player-float" aria-hidden="true"></div>
+        <div class="player-wrap">
+          <div id="playerEmbed" class="embed" aria-live="polite"></div>
+        </div>
+        <div id="player-controls">
+          <div>
+            <div id="playerTitle" class="player-title">Загрузка...</div>
+            <div id="playerSub" class="player-sub">—</div>
+          </div>
+          <div style="display:flex;gap:8px;align-items:center">
+            <button id="prevBtn" class="btn">◀ Назад</button>
+            <button id="nextBtn" class="btn">Вперёд ▶</button>
+            </div>
+        </div>
+        
+        <div class="player-select-wrapper">
+          <label for="playerSource">Выбор плеера:</label>
+          <div class="custom-select">
+            <select id="playerSource" name="playerSource">
+              <option value="dzen" selected>Dzen</option>
+              <option value="mega">MEGA</option>
+              <option value="kodik">Kodik</option>
+            </select>
+          </div>
+        </div>
 
-      </div>
+      </div>
 
-      <aside class="meta-card" aria-label="Информация о выпуске">
-        <h3>О серии</h3>
-        <div class="meta-row" id="metaText">Выбери эпизод из списка.</div>
-        <div class="nav-row">
-          <div class="pill" id="shareBtn" title="Скопировать ссылку">Поделиться</div>
-        </div>
-        <div style="height:10px"></div>
-        <div>
-          <div style="font-weight:700;font-size:13px;margin-bottom:6px">Подписаться</div>
-          <div style="display:flex;gap:8px">
-            <a href="https://t.me/maxletovv_dub" target="_blank" rel="noopener noreferrer" class="btn">Макс Летов тут</a>
-            <a href="https://t.me/shiyoritime" target="_blank" rel="noopener noreferrer" class="btn">ShiYori тут</a>
-          </div>
-        </div>
-        <div style="height:18px; border-bottom: 1px solid rgba(255,255,255,0.05); margin: 18px 0;"></div>
-        <h3>О нас</h3>
-        <div class="meta-row">Сайт дуэта по озвучке Ван-Пис - ShiYori & Макс Летов. Озвучиваем с 1123 серии!
-        <br><br>
-        https://t.me/boost/maxletovv_dub
-        <br>
-        https://www.tiktok.com/@max.letovv_dub</div>
-        <div style="margin-top: 12px;">
-            <button id="copyrightBtn" class="btn ghost">Для правообладателей</button>
-        </div>
-      </aside>
-    </section>
+      <aside class="meta-card" aria-label="Информация о выпуске">
+        <h3>О серии</h3>
+        <div class="meta-row" id="metaText">Выбери эпизод из списка.</div>
+        <div class="nav-row">
+          <div class="pill" id="shareBtn" title="Скопировать ссылку">Поделиться</div>
+        </div>
+        <div style="height:10px"></div>
+        <div>
+          <div style="font-weight:700;font-size:13px;margin-bottom:6px">Подписаться</div>
+          <div style="display:flex;gap:8px">
+            <a href="https://t.me/maxletovv_dub" target="_blank" rel="noopener noreferrer" class="btn">Макс Летов тут</a>
+            <a href="https://t.me/shiyoritime" target="_blank" rel="noopener noreferrer" class="btn">ShiYori тут</a>
+          </div>
+        </div>
+        <div style="height:18px; border-bottom: 1px solid rgba(255,255,255,0.05); margin: 18px 0;"></div>
+        <h3>О нас</h3>
+        <div class="meta-row">Сайт дуэта по озвучке Ван-Пис - ShiYori & Макс Летов. Озвучиваем с 1123 серии!
+        <br><br>
+        https://t.me/boost/maxletovv_dub
+        <br>
+        https://www.tiktok.com/@max.letovv_dub</div>
+        <div style="margin-top: 12px;">
+            <button id="copyrightBtn" class="btn ghost">Для правообладателей</button>
+        </div>
+      </aside>
+    </section>
 
-    <section class="playlist-area" aria-label="Список эпизодов">
-      <div class="left-list">
-        <div class="list-controls">
-          <input id="search" class="search" placeholder="Поиск по названию..." aria-label="Поиск по эпизодам">
-          <button id="toggleAll" class="btn ghost">Показать все</button>
-        </div>
-        <div class="episodes-grid" id="episodesGrid" tabindex="0" aria-live="polite"></div>
-      </div>
-    </section>
-  </div>
+    <section class="playlist-area" aria-label="Список эпизодов">
+      <div class="left-list">
+        <div class="list-controls">
+          <input id="search" class="search" placeholder="Поиск по названию..." aria-label="Поиск по эпизодам">
+          <button id="toggleAll" class="btn ghost">Показать все</button>
+        </div>
+        <div class="episodes-grid" id="episodesGrid" tabindex="0" aria-live="polite"></div>
+      </div>
+    </section>
+  </div>
 
-  <div id="modal" class="modal" role="dialog" aria-modal="true" aria-hidden="true">
-    <div class="modal-card" role="document">
-      <div class="modal-header">
-        <h2 style="margin:0">Все серии</h2>
-        <div style="display:flex;gap:8px; width: 100%; max-width: 400px;">
-          <input id="modalSearch" class="search" placeholder="Фильтр..." style="flex-grow: 1;">
-          <button id="closeModal" class="btn">Закрыть</button>
-        </div>
-      </div>
-      <table class="table" id="allTable" role="table">
-        <thead>
-          <tr><th>EP</th><th>Название</th><th>Дата</th><th>Качество</th><th></th></tr>
-        </thead>
-        <tbody id="allTbody"></tbody>
-      </table>
-    </div>
-  </div>
+  <div id="modal" class="modal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal-card" role="document">
+      <div class="modal-header">
+        <h2 style="margin:0">Все серии</h2>
+        <div style="display:flex;gap:8px; width: 100%; max-width: 400px;">
+          <input id="modalSearch" class="search" placeholder="Фильтр..." style="flex-grow: 1;">
+          <button id="closeModal" class="btn">Закрыть</button>
+        </div>
+      </div>
+      <table class="table" id="allTable" role="table">
+        <thead>
+          <tr><th>EP</th><th>Название</th><th>Дата</th><th>Качество</th><th></th></tr>
+        </thead>
+        <tbody id="allTbody"></tbody>
+      </table>
+    </div>
+  </div>
 
-  <div id="copyrightModal" class="modal" role="dialog" aria-modal="true" aria-hidden="true">
-    <div class="modal-card" role="document">
-        <div class="modal-header">
-            <h2 style="margin:0">Информация для правообладателей</h2>
-            <button id="closeCopyrightModal" class="btn">Закрыть</button>
-        </div>
-        <div style="color: var(--muted); font-size: 14px; line-height: 1.6;">
-            <p>Данный сайт является исключительно информационным и демонстрационным проектом.</p>
-            <p>Все права на аудио и видеоматериалы, представленные на сайте, принадлежат их законным правообладателям. Мы не претендуем на авторство и не извлекаем коммерческую выгоду из их использования.</p>
-            <p>Весь контент (видеофайлы) размещен на сторонних ресурсах и встроен в плеер с помощью технологии iframe. Наш сайт не хранит никаких нелегальных материалов, а лишь предоставляет ссылки на них.</p>
-            <p>Если вы являетесь правообладателем и считаете, что ваши права были нарушены, пожалуйста, свяжитесь с нами по электронной почте. Мы готовы оперативно рассмотреть ваш запрос и удалить спорные материалы.</p>
-            <p><strong>Почта для связи:</strong> <a href="mailto:letovvkun@proton.me" style="color: var(--accent-c);">letovvkun@proton.me</a></p>
-        </div>
-    </div>
-  </div>
+  <div id="copyrightModal" class="modal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal-card" role="document">
+        <div class="modal-header">
+            <h2 style="margin:0">Информация для правообладателей</h2>
+            <button id="closeCopyrightModal" class="btn">Закрыть</button>
+        </div>
+        <div style="color: var(--muted); font-size: 14px; line-height: 1.6;">
+            <p>Данный сайт является исключительно информационным и демонстрационным проектом.</p>
+            <p>Все права на аудио и видеоматериалы, представленные на сайте, принадлежат их законным правообладателям. Мы не претендуем на авторство и не извлекаем коммерческую выгоду из их использования.</p>
+            <p>Весь контент (видеофайлы) размещен на сторонних ресурсах и встроен в плеер с помощью технологии iframe. Наш сайт не хранит никаких нелегальных материалов, а лишь предоставляет ссылки на них.</p>
+            <p>Если вы являетесь правообладателем и считаете, что ваши права были нарушены, пожалуйста, свяжитесь с нами по электронной почте. Мы готовы оперативно рассмотреть ваш запрос и удалить спорные материалы.</p>
+            <p><strong>Почта для связи:</strong> <a href="mailto:letovvkun@proton.me" style="color: var(--accent-c);">letovvkun@proton.me</a></p>
+        </div>
+    </div>
+  </div>
 
 <script type="module">
-  // --- FIREBASE: Импорт необходимых функций ---
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js";
-  import { getFirestore, collection, getDocs, orderBy, query } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore.js";
+  // --- FIREBASE: Импорт необходимых функций ---
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js";
+  import { getFirestore, collection, getDocs, orderBy, query } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore.js";
 
-  // --- FIREBASE: Ваша конфигурация ---
-  const firebaseConfig = {
-    apiKey: "AIzaSyBE1AkNd3bPGPr3ZPUbtqNUd2WDCB2SHHw",
-    authDomain: "letovshiyori.firebaseapp.com",
-    projectId: "letovshiyori",
-    storageBucket: "letovshiyori.appspot.com",
-    messagingSenderId: "379203362104",
-    appId: "1:379203362104:web:20235be9bbbbfdbd6df5cd"
-  };
+  // --- FIREBASE: Ваша конфигурация ---
+  const firebaseConfig = {
+    apiKey: "AIzaSyBE1AkNd3bPGPr3ZPUbtqNUd2WDCB2SHHw",
+    authDomain: "letovshiyori.firebaseapp.com",
+    projectId: "letovshiyori",
+    storageBucket: "letovshiyori.appspot.com",
+    messagingSenderId: "379203362104",
+    appId: "1:379203362104:web:20235be9bbbbfdbd6df5cd"
+  };
 
-  // --- FIREBASE: Инициализация ---
-  const app = initializeApp(firebaseConfig);
-  const db = getFirestore(app);
-  const episodesCollection = collection(db, 'episodes');
+  // --- FIREBASE: Инициализация ---
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+  const episodesCollection = collection(db, 'episodes');
 
-  // --- ЛОКАЛЬНЫЙ КЕШ ДЛЯ РАБОТЫ С СЕРИЯМИ
-  let episodes = [];
-  let currentIndex = 0;
-  let allEpisodesLoaded = false;
+  // --- ЛОКАЛЬНЫЙ КЕШ ДЛЯ РАБОТЫ С СЕРИЯМИ
+  let episodes = [];
+  let currentIndex = 0;
+  let allEpisodesLoaded = false;
 
-  const episodesGrid = document.getElementById('episodesGrid');
-  const playerEmbed = document.getElementById('playerEmbed');
-  const playerTitle = document.getElementById('playerTitle');
-  const playerSub = document.getElementById('playerSub');
-  const metaText = document.getElementById('metaText');
-  const search = document.getElementById('search');
-  const allBtn = document.getElementById('allBtn');
-  const modal = document.getElementById('modal');
-  const allTbody = document.getElementById('allTbody');
-  const modalSearch = document.getElementById('modalSearch');
-  const playerSourceSelect = document.getElementById('playerSource');
-  const themeBtn = document.getElementById('themeBtn');
-  const prevBtn = document.getElementById('prevBtn');
-  const nextBtn = document.getElementById('nextBtn');
-  // const pipBtn = document.getElementById('pipBtn'); // УДАЛЕНО
-  const shareBtn = document.getElementById('shareBtn');
-  const closeModalBtn = document.getElementById('closeModal');
-  const toggleAllBtn = document.getElementById('toggleAll');
+  const episodesGrid = document.getElementById('episodesGrid');
+  const playerEmbed = document.getElementById('playerEmbed');
+  const playerTitle = document.getElementById('playerTitle');
+  const playerSub = document.getElementById('playerSub');
+  const metaText = document.getElementById('metaText');
+  const search = document.getElementById('search');
+  const allBtn = document.getElementById('allBtn');
+  const modal = document.getElementById('modal');
+  const allTbody = document.getElementById('allTbody');
+  const modalSearch = document.getElementById('modalSearch');
+  const playerSourceSelect = document.getElementById('playerSource');
+  const themeBtn = document.getElementById('themeBtn');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  // const pipBtn = document.getElementById('pipBtn'); // УДАЛЕНО
+  const shareBtn = document.getElementById('shareBtn');
+  const closeModalBtn = document.getElementById('closeModal');
+  const toggleAllBtn = document.getElementById('toggleAll');
 
-  // --- ДОБАВЛЕНЫ ЭЛЕМЕНТЫ ДЛЯ НОВОГО МОДАЛЬНОГО ОКНА ---
-  const copyrightBtn = document.getElementById('copyrightBtn');
-  const copyrightModal = document.getElementById('copyrightModal');
-  const closeCopyrightModalBtn = document.getElementById('closeCopyrightModal');
+  // --- ДОБАВЛЕНЫ ЭЛЕМЕНТЫ ДЛЯ НОВОГО МОДАЛЬНОГО ОКНА ---
+  const copyrightBtn = document.getElementById('copyrightBtn');
+  const copyrightModal = document.getElementById('copyrightModal');
+  const closeCopyrightModalBtn = document.getElementById('closeCopyrightModal');
 
 
-  // --- FIREBASE: Переписанная функция загрузки данных ---
-  async function loadEpisodes() {
-    episodesGrid.innerHTML = '<div style="text-align:center;padding:2rem;width:100%">Загрузка серий...</div>';
-    try {
-      // Создаем запрос с сортировкой по ID в порядке убывания
-      const q = query(episodesCollection, orderBy("id", "desc"));
-      const querySnapshot = await getDocs(q);
+  // --- FIREBASE: Переписанная функция загрузки данных ---
+  async function loadEpisodes() {
+    episodesGrid.innerHTML = '<div style="text-align:center;padding:2rem;width:100%">Загрузка серий...</div>';
+    try {
+      // Создаем запрос с сортировкой по ID в порядке убывания
+      const q = query(episodesCollection, orderBy("id", "desc"));
+      const querySnapshot = await getDocs(q);
 
-      episodes = []; // Очищаем локальный кеш
-      querySnapshot.forEach((doc) => {
-        episodes.push({ firestoreId: doc.id, ...doc.data() });
-      });
+      episodes = []; // Очищаем локальный кеш
+      querySnapshot.forEach((doc) => {
+        episodes.push({ firestoreId: doc.id, ...doc.data() });
+      });
 
-      allEpisodesLoaded = true;
-      renderList();
-      renderModalTable();
-      if (episodes.length > 0) {
-        // Загружаем самую новую серию
-        loadEpisode(0);
+      allEpisodesLoaded = true;
+      renderList();
+      renderModalTable();
+      if (episodes.length > 0) {
+        // Загружаем самую новую серию
+        loadEpisode(0);
+      } else {
+        playerEmbed.innerHTML = `<span>Серии пока не добавлены.</span>`;
+        playerTitle.textContent = 'Нет доступных серий';
+        playerSub.textContent = '';
+        metaText.textContent = '';
+      }
+    } catch (error) {
+      console.error("Ошибка при загрузке серий из Firestore: ", error);
+      
+      // НОВОЕ: Проверка на ошибку доступа
+      if (error.code === 'permission-denied') {
+        episodesGrid.innerHTML = `
+          <div style="text-align:center;padding:2rem;width:100%;color:var(--accent-c);">
+            <h1>Доступ запрещён. Войдите под другим аккаунтом.</h1>
+          </div>`;
       } else {
-        playerEmbed.innerHTML = `<span>Серии пока не добавлены.</span>`;
-        playerTitle.textContent = 'Нет доступных серий';
-        playerSub.textContent = '';
-        metaText.textContent = '';
+        // Старое сообщение для других типов ошибок
+        episodesGrid.innerHTML = `
+          <div style="text-align:center;padding:2rem;width:100%;color:var(--accent-c);">
+            Ошибка загрузки данных. Проверьте консоль.
+          </div>`;
       }
-    } catch (error) {
-      console.error("Ошибка при загрузке серий из Firestore: ", error);
-      episodesGrid.innerHTML = `<div style="text-align:center;padding:2rem;width:100%;color:var(--accent-c);">Ошибка загрузки данных. Проверьте консоль.</div>`;
-    }
-  }
+    }
+  }
 
 
-  function renderList(filter = '') {
-    episodesGrid.innerHTML = '';
-    const term = filter.trim().toLowerCase();
-    episodes.forEach((ep, idx) => {
-      if (term && !(ep.title.toLowerCase().includes(term) || String(ep.id).includes(term))) return;
-      const el = document.createElement('div');
-      el.className = 'ep';
-      el.tabIndex = 0;
-      el.setAttribute('role', 'button');
-      el.innerHTML = `
-        <div class="thumb" aria-hidden="true">
-          ${ep.thumb ? `<img src="${ep.thumb}" alt="" style="width:100%;height:100%;object-fit:cover">` : `EP ${ep.id}`}
-        </div>
-        <div class="meta">
-          <div class="t">${ep.title}</div>
-          <div class="s">${ep.date} • ${ep.quality}</div>
-        </div>
-      `;
-      el.onclick = () => loadEpisode(idx);
-      el.onkeypress = (e) => { if (e.key === 'Enter') loadEpisode(idx) };
-      episodesGrid.appendChild(el);
-    });
-    markActive();
-  }
+  function renderList(filter = '') {
+    episodesGrid.innerHTML = '';
+    const term = filter.trim().toLowerCase();
+    episodes.forEach((ep, idx) => {
+      if (term && !(ep.title.toLowerCase().includes(term) || String(ep.id).includes(term))) return;
+      const el = document.createElement('div');
+      el.className = 'ep';
+      el.tabIndex = 0;
+      el.setAttribute('role', 'button');
+      el.innerHTML = `
+        <div class="thumb" aria-hidden="true">
+          ${ep.thumb ? `<img src="${ep.thumb}" alt="" style="width:100%;height:100%;object-fit:cover">` : `EP ${ep.id}`}
+        </div>
+        <div class="meta">
+          <div class="t">${ep.title}</div>
+          <div class="s">${ep.date} • ${ep.quality}</div>
+        </div>
+      `;
+      el.onclick = () => loadEpisode(idx);
+      el.onkeypress = (e) => { if (e.key === 'Enter') loadEpisode(idx) };
+      episodesGrid.appendChild(el);
+    });
+    markActive();
+  }
 
 
-  function loadEpisode(idx, autoplay = false) {
-    if (idx < 0 || idx >= episodes.length) return;
-    currentIndex = idx;
-    const ep = episodes[idx];
-    const selectedPlayer = playerSourceSelect.value;
-    const iframeCode = ep.players[selectedPlayer];
+  function loadEpisode(idx, autoplay = false) {
+    if (idx < 0 || idx >= episodes.length) return;
+    currentIndex = idx;
+    const ep = episodes[idx];
+    const selectedPlayer = playerSourceSelect.value;
+    const iframeCode = ep.players[selectedPlayer];
 
-    if (iframeCode) {
-      // Вставляем iframe, если он существует
-      playerEmbed.innerHTML = iframeCode;
-    } else {
-      playerEmbed.innerHTML = `<span>Для плеера "${selectedPlayer.toUpperCase()}" видео не найдено.</span>`;
-    }
+    if (iframeCode) {
+      // Вставляем iframe, если он существует
+      playerEmbed.innerHTML = iframeCode;
+    } else {
+      playerEmbed.innerHTML = `<span>Для плеера "${selectedPlayer.toUpperCase()}" видео не найдено.</span>`;
+    }
 
-    playerTitle.textContent = ep.title;
-    playerSub.textContent = `${ep.date} • ${ep.quality}`;
-    metaText.textContent = `EP ${ep.id} • Загружено: ${ep.date}`;
-    markActive();
-  }
-
-
-  function markActive() {
-    const nodes = Array.from(episodesGrid.children);
-    nodes.forEach((n, i) => {
-      if (i === currentIndex) n.classList.add('active'); else n.classList.remove('active');
-    });
-  }
+    playerTitle.textContent = ep.title;
+    playerSub.textContent = `${ep.date} • ${ep.quality}`;
+    metaText.textContent = `EP ${ep.id} • Загружено: ${ep.date}`;
+    markActive();
+  }
 
 
-  function openModal() {
-    renderModalTable('');
-    modal.classList.add('open');
-    modal.setAttribute('aria-hidden', 'false');
-    modalSearch.focus();
-  }
-  function closeModal() {
-    modal.classList.remove('open');
-    modal.setAttribute('aria-hidden', 'true');
-  }
+  function markActive() {
+    const nodes = Array.from(episodesGrid.children);
+    nodes.forEach((n, i) => {
+      if (i === currentIndex) n.classList.add('active'); else n.classList.remove('active');
+    });
+  }
 
 
-  function renderModalTable(filter = '') {
-    allTbody.innerHTML = '';
-    const q = filter.trim().toLowerCase();
-    episodes.forEach((ep, idx) => {
-      if (q && !(String(ep.id).includes(q) || ep.title.toLowerCase().includes(q))) return;
-      const tr = document.createElement('tr');
-      tr.innerHTML = `
-        <td style="width:70px"><strong>${ep.id}</strong></td>
-        <td>${ep.title}</td>
-        <td style="width:120px">${ep.date}</td>
-        <td style="width:80px">${ep.quality}</td>
-        <td class="action-cell"><button class="btn" data-idx="${idx}">Смотреть</button></td>
-      `;
-      allTbody.appendChild(tr);
-    });
-    Array.from(allTbody.querySelectorAll('button')).forEach(b => {
-      b.onclick = () => {
-        const idx = Number(b.getAttribute('data-idx'));
-        loadEpisode(idx);
-        closeModal();
-        const targetElement = episodesGrid.children[idx];
-        if (targetElement) {
-          targetElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }
-      };
-    });
-  }
+  function openModal() {
+    renderModalTable('');
+    modal.classList.add('open');
+    modal.setAttribute('aria-hidden', 'false');
+    modalSearch.focus();
+  }
+  function closeModal() {
+    modal.classList.remove('open');
+    modal.setAttribute('aria-hidden', 'true');
+  }
 
 
-  // --- ОБРАБОТЧИКИ СОБЫТИЙ ---
-  prevBtn.addEventListener('click', () => {
-    if (currentIndex < episodes.length - 1) loadEpisode(currentIndex + 1, true);
-  });
-  nextBtn.addEventListener('click', () => {
-    if (currentIndex > 0) loadEpisode(currentIndex - 1, true);
-  });
-  playerSourceSelect.addEventListener('change', () => loadEpisode(currentIndex));
-  
-  // -- ОБРАБОТЧИК КНОПКИ PIP УДАЛЕН --
-  
-  search.addEventListener('input', (e) => renderList(e.target.value));
-  allBtn.addEventListener('click', openModal);
-  closeModalBtn.addEventListener('click', closeModal);
-  modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
-  modalSearch.addEventListener('input', (e) => renderModalTable(e.target.value));
-  modalSearch.addEventListener('keydown', (e) => { if (e.key === 'Enter') renderModalTable(e.target.value); });
-  shareBtn.addEventListener('click', () => {
-    const ep = episodes[currentIndex];
-    if (!ep) return alert('Эпизод не выбран');
-    const selectedPlayer = playerSourceSelect.value;
-    const iframeCode = ep.players[selectedPlayer];
-    if (!iframeCode) return alert('Нет ссылки для этого плеера.');
-    const m = iframeCode.match(/src="([^"]+)"/);
-    const url = m ? m[1] : window.location.href;
-    navigator.clipboard?.writeText(url).then(() => alert('Ссылка на видео скопирована!'), () => alert('Не удалось скопировать ссылку'));
-  });
-  themeBtn.addEventListener('click', () => {
-    const body = document.body;
-    const currentTheme = body.getAttribute('data-theme') || 'dark';
-    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-    body.setAttribute('data-theme', newTheme);
-  });
-  toggleAllBtn.addEventListener('click', openModal);
-
-  // --- ДОБАВЛЕНЫ ОБРАБОТЧИКИ ДЛЯ НОВОГО МОДАЛЬНОГО ОКНА ---
-  copyrightBtn.addEventListener('click', () => {
-    copyrightModal.classList.add('open');
-    copyrightModal.setAttribute('aria-hidden', 'false');
-  });
-  closeCopyrightModalBtn.addEventListener('click', () => {
-    copyrightModal.classList.remove('open');
-    copyrightModal.setAttribute('aria-hidden', 'true');
-  });
-  copyrightModal.addEventListener('click', (e) => {
-    if (e.target === copyrightModal) {
-      copyrightModal.classList.remove('open');
-      copyrightModal.setAttribute('aria-hidden', 'true');
-    }
-  });
+  function renderModalTable(filter = '') {
+    allTbody.innerHTML = '';
+    const q = filter.trim().toLowerCase();
+    episodes.forEach((ep, idx) => {
+      if (q && !(String(ep.id).includes(q) || ep.title.toLowerCase().includes(q))) return;
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td style="width:70px"><strong>${ep.id}</strong></td>
+        <td>${ep.title}</td>
+        <td style="width:120px">${ep.date}</td>
+        <td style="width:80px">${ep.quality}</td>
+        <td class="action-cell"><button class="btn" data-idx="${idx}">Смотреть</button></td>
+      `;
+      allTbody.appendChild(tr);
+    });
+    Array.from(allTbody.querySelectorAll('button')).forEach(b => {
+      b.onclick = () => {
+        const idx = Number(b.getAttribute('data-idx'));
+        loadEpisode(idx);
+        closeModal();
+        const targetElement = episodesGrid.children[idx];
+        if (targetElement) {
+          targetElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      };
+    });
+  }
 
 
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-      if (modal.classList.contains('open')) closeModal();
-      // Добавлена проверка для нового модального окна
-      if (copyrightModal.classList.contains('open')) {
-          copyrightModal.classList.remove('open');
-          copyrightModal.setAttribute('aria-hidden', 'true');
-      }
-    }
-  });
+  // --- ОБРАБОТЧИКИ СОБЫТИЙ ---
+  prevBtn.addEventListener('click', () => {
+    if (currentIndex < episodes.length - 1) loadEpisode(currentIndex + 1, true);
+  });
+  nextBtn.addEventListener('click', () => {
+    if (currentIndex > 0) loadEpisode(currentIndex - 1, true);
+  });
+  playerSourceSelect.addEventListener('change', () => loadEpisode(currentIndex));
+  
+  // -- ОБРАБОТЧИК КНОПКИ PIP УДАЛЕН --
+  
+  search.addEventListener('input', (e) => renderList(e.target.value));
+  allBtn.addEventListener('click', openModal);
+  closeModalBtn.addEventListener('click', closeModal);
+  modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+  modalSearch.addEventListener('input', (e) => renderModalTable(e.target.value));
+  modalSearch.addEventListener('keydown', (e) => { if (e.key === 'Enter') renderModalTable(e.target.value); });
+  shareBtn.addEventListener('click', () => {
+    const ep = episodes[currentIndex];
+    if (!ep) return alert('Эпизод не выбран');
+    const selectedPlayer = playerSourceSelect.value;
+    const iframeCode = ep.players[selectedPlayer];
+    if (!iframeCode) return alert('Нет ссылки для этого плеера.');
+    const m = iframeCode.match(/src="([^"]+)"/);
+    const url = m ? m[1] : window.location.href;
+    navigator.clipboard?.writeText(url).then(() => alert('Ссылка на видео скопирована!'), () => alert('Не удалось скопировать ссылку'));
+  });
+  themeBtn.addEventListener('click', () => {
+    const body = document.body;
+    const currentTheme = body.getAttribute('data-theme') || 'dark';
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    body.setAttribute('data-theme', newTheme);
+  });
+  toggleAllBtn.addEventListener('click', openModal);
 
-  // --- ИНИЦИАЛИЗАЦИЯ ПРИ ЗАГРУЗКЕ СТРАНИЦЫ ---
-  document.addEventListener('DOMContentLoaded', () => {
-    loadEpisodes();
-  });
+  // --- ДОБАВЛЕНЫ ОБРАБОТЧИКИ ДЛЯ НОВОГО МОДАЛЬНОГО ОКНА ---
+  copyrightBtn.addEventListener('click', () => {
+    copyrightModal.classList.add('open');
+    copyrightModal.setAttribute('aria-hidden', 'false');
+  });
+  closeCopyrightModalBtn.addEventListener('click', () => {
+    copyrightModal.classList.remove('open');
+    copyrightModal.setAttribute('aria-hidden', 'true');
+  });
+  copyrightModal.addEventListener('click', (e) => {
+    if (e.target === copyrightModal) {
+      copyrightModal.classList.remove('open');
+      copyrightModal.setAttribute('aria-hidden', 'true');
+    }
+  });
+
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      if (modal.classList.contains('open')) closeModal();
+      // Добавлена проверка для нового модального окна
+      if (copyrightModal.classList.contains('open')) {
+          copyrightModal.classList.remove('open');
+          copyrightModal.setAttribute('aria-hidden', 'true');
+      }
+    }
+  });
+
+  // --- ИНИЦИАЛИЗАЦИЯ ПРИ ЗАГРУЗКЕ СТРАНИЦЫ ---
+  document.addEventListener('DOMContentLoaded', () => {
+    loadEpisodes();
+  });
 </script>
 </body>
 
