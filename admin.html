@@ -7,324 +7,332 @@
 <link rel="icon" href="data:," />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --bg-1: #1a1a1a; --bg-2: #121212; --glass-bg: rgba(255,255,255,0.03); --card: rgba(255,255,255,0.04);
-    --accent-a: #444; --accent-b: #222; --accent-c: #ffb86b; --muted: rgba(234, 234, 234, 0.6);
-    --text: #eaeaea; --radius: 16px; --glass-strong: rgba(255,255,255,0.06);
-  }
-  [data-theme="light"]{
-    --bg-1:#f3f7fb; --bg-2:#e6eef6; --glass-bg: rgba(11,27,43,0.04); --card: rgba(11,27,43,0.06);
-    --accent-a:#006cff; --accent-b:#00b37e; --accent-c:#ff7b2d; --muted: rgba(11,27,43,0.6);
-    --text:#071025; --glass-strong: rgba(11,27,43,0.04);
-  }
-  *{box-sizing:border-box}
-  html{scroll-behavior:smooth}
-  body{
-    min-height:100vh; margin:0; font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-    color:var(--text);
-    background: radial-gradient(1000px at 15% 15%, rgba(255, 255, 255, 0.05), transparent 40%),
-                radial-gradient(800px at 85% 85%, rgba(255, 255, 255, 0.03), transparent 50%),
-                linear-gradient(180deg,var(--bg-1), var(--bg-2));
-    -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; padding:0;
-  }
-  .wrap{
-    width:100%; max-width:1200px; margin: 2rem auto; border-radius:22px; position:relative;
-    z-index: 1; padding:28px; overflow:hidden;
-    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-    box-shadow: 0 12px 40px rgba(0,0,0,0.7); backdrop-filter: blur(14px) saturate(1.05);
-    display: none; /* ИЗНАЧАЛЬНО ПАНЕЛЬ СКРЫТА */
-  }
-  header.top{ position:relative; z-index:5; display:flex; align-items:center; justify-content:space-between; gap:14px; margin-bottom:28px; }
-  .brand{ display:flex; gap:14px; align-items:center; }
-  .logo-badge{ width:56px;height:56px;border-radius:12px; background: linear-gradient(135deg,var(--accent-a), var(--accent-b)); display:flex;align-items:center;justify-content:center; font-weight:800; color:var(--text); font-size:18px; box-shadow: 0 8px 36px rgba(11,23,50,0.45); flex-shrink: 0; }
-  .brand .title h1{margin:0;font-size:20px;letter-spacing:0.2px;}
-  .controls-top{display:flex;gap:8px;align-items:center}
-  .btn { background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01)); border: 1px solid rgba(255,255,255,0.04); padding:9px 14px;border-radius:12px;color:var(--text); cursor:pointer;font-weight:600;font-size:13px; backdrop-filter: blur(8px); transition: transform .15s ease, box-shadow .15s; white-space: nowrap; }
-  .btn:hover{ transform:translateY(-3px); box-shadow: 0 10px 30px rgba(0,0,0,0.25); }
-  .btn.special-btn { background: var(--accent-c); color: var(--bg-1); font-weight: 800; border-color: transparent; }
-  .btn.danger-btn { background: #c73434; color: white; }
-  .modal{ position:fixed; inset:0; display:none; align-items:center; justify-content:center; z-index:50; background: linear-gradient(180deg, rgba(18,18,18,0.85), rgba(18,18,18,0.95)); backdrop-filter: blur(10px); }
-  .modal.open{ display:flex; }
-  .modal-card{ width:90%; max-width:780px; max-height:90vh; overflow-y:auto; border-radius:14px; padding:24px; background: var(--bg-1); border:1px solid rgba(255,255,255,0.05); box-shadow: 0 16px 50px rgba(0,0,0,0.5); }
-  .modal-header{ display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:20px }
-  .modal-header h2 { margin: 0; }
-  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
-  .form-group { display: flex; flex-direction: column; gap: 8px; }
-  .form-group.full-width { grid-column: 1 / -1; }
-  .form-group label { font-weight: 600; font-size: 14px; color: var(--muted); }
-  .form-input, .form-textarea { width: 100%; padding: 10px 12px; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.08); background: rgba(0,0,0,0.2); color: var(--text); font-size: 14px; font-family: inherit; outline: none; transition: border-color .2s; }
-  .form-input:focus, .form-textarea:focus { border-color: var(--accent-c); }
-  .form-textarea { min-height: 100px; resize: vertical; }
-  .form-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px; }
-  .table{ width:100%; border-collapse:collapse; font-size:14px; color:var(--muted) }
-  .table th{ text-align:left; padding:12px 10px; color:var(--text); font-weight:700; border-bottom: 1px solid rgba(255,255,255,0.1); }
-  .table td{ padding:12px 10px; border-top: 1px dashed rgba(255,255,255,0.04) }
-  .table .action-cell { width: 180px; text-align: right; }
-  .table tr:hover { background: rgba(255,255,255,0.02); }
+  :root{
+    --bg-1: #1a1a1a; --bg-2: #121212; --glass-bg: rgba(255,255,255,0.03); --card: rgba(255,255,255,0.04);
+    --accent-a: #444; --accent-b: #222; --accent-c: #ffb86b; --muted: rgba(234, 234, 234, 0.6);
+    --text: #eaeaea; --radius: 16px; --glass-strong: rgba(255,255,255,0.06);
+  }
+  [data-theme="light"]{
+    --bg-1:#f3f7fb; --bg-2:#e6eef6; --glass-bg: rgba(11,27,43,0.04); --card: rgba(11,27,43,0.06);
+    --accent-a:#006cff; --accent-b:#00b37e; --accent-c:#ff7b2d; --muted: rgba(11,27,43,0.6);
+    --text:#071025; --glass-strong: rgba(11,27,43,0.04);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    min-height:100vh; margin:0; font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    color:var(--text);
+    background: radial-gradient(1000px at 15% 15%, rgba(255, 255, 255, 0.05), transparent 40%),
+                radial-gradient(800px at 85% 85%, rgba(255, 255, 255, 0.03), transparent 50%),
+                linear-gradient(180deg,var(--bg-1), var(--bg-2));
+    -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; padding:0;
+  }
+  .wrap{
+    width:100%; max-width:1200px; margin: 2rem auto; border-radius:22px; position:relative;
+    z-index: 1; padding:28px; overflow:hidden;
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    box-shadow: 0 12px 40px rgba(0,0,0,0.7); backdrop-filter: blur(14px) saturate(1.05);
+    display: none; /* ИЗНАЧАЛЬНО ПАНЕЛЬ СКРЫТА */
+  }
+  header.top{ position:relative; z-index:5; display:flex; align-items:center; justify-content:space-between; gap:14px; margin-bottom:28px; }
+  .brand{ display:flex; gap:14px; align-items:center; }
+  .logo-badge{ width:56px;height:56px;border-radius:12px; background: linear-gradient(135deg,var(--accent-a), var(--accent-b)); display:flex;align-items:center;justify-content:center; font-weight:800; color:var(--text); font-size:18px; box-shadow: 0 8px 36px rgba(11,23,50,0.45); flex-shrink: 0; }
+  .brand .title h1{margin:0;font-size:20px;letter-spacing:0.2px;}
+  .controls-top{display:flex;gap:8px;align-items:center}
+  .btn { background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01)); border: 1px solid rgba(255,255,255,0.04); padding:9px 14px;border-radius:12px;color:var(--text); cursor:pointer;font-weight:600;font-size:13px; backdrop-filter: blur(8px); transition: transform .15s ease, box-shadow .15s; white-space: nowrap; }
+  .btn:hover{ transform:translateY(-3px); box-shadow: 0 10px 30px rgba(0,0,0,0.25); }
+  .btn.special-btn { background: var(--accent-c); color: var(--bg-1); font-weight: 800; border-color: transparent; }
+  .btn.danger-btn { background: #c73434; color: white; }
+  .modal{ position:fixed; inset:0; display:none; align-items:center; justify-content:center; z-index:50; background: linear-gradient(180deg, rgba(18,18,18,0.85), rgba(18,18,18,0.95)); backdrop-filter: blur(10px); }
+  .modal.open{ display:flex; }
+  .modal-card{ width:90%; max-width:780px; max-height:90vh; overflow-y:auto; border-radius:14px; padding:24px; background: var(--bg-1); border:1px solid rgba(255,255,255,0.05); box-shadow: 0 16px 50px rgba(0,0,0,0.5); }
+  .modal-header{ display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:20px }
+  .modal-header h2 { margin: 0; }
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+  .form-group { display: flex; flex-direction: column; gap: 8px; }
+  .form-group.full-width { grid-column: 1 / -1; }
+  .form-group label { font-weight: 600; font-size: 14px; color: var(--muted); }
+  .form-input, .form-textarea { width: 100%; padding: 10px 12px; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.08); background: rgba(0,0,0,0.2); color: var(--text); font-size: 14px; font-family: inherit; outline: none; transition: border-color .2s; }
+  .form-input:focus, .form-textarea:focus { border-color: var(--accent-c); }
+  .form-textarea { min-height: 100px; resize: vertical; }
+  .form-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px; }
+  .table{ width:100%; border-collapse:collapse; font-size:14px; color:var(--muted) }
+  .table th{ text-align:left; padding:12px 10px; color:var(--text); font-weight:700; border-bottom: 1px solid rgba(255,255,255,0.1); }
+  .table td{ padding:12px 10px; border-top: 1px dashed rgba(255,255,255,0.04) }
+  .table .action-cell { width: 180px; text-align: right; }
+  .table tr:hover { background: rgba(255,255,255,0.02); }
 </style>
 </head>
 <body data-theme="dark">
 
 <div id="login-screen" style="display: flex; align-items: center; justify-content: center; min-height: 100vh; flex-direction: column; gap: 20px;">
-    <h1>Вход в админ-панель</h1>
-    <button id="loginBtn" class="btn special-btn" style="font-size: 16px; padding: 12px 24px;">Войти через Google</button>
+    <h1>Вход в админ-панель</h1>
+    <button id="loginBtn" class="btn special-btn" style="font-size: 16px; padding: 12px 24px;">Войти через Google</button>
 </div>
 
 <div class="wrap" role="main">
-  <header class="top">
-    <div class="brand">
-      <div class="logo-badge">ADM</div>
-      <div class="title"><h1>Панель управления сериями</h1></div>
-    </div>
-    <div class="controls-top">
-      <button id="addEpisodeBtn" class="btn special-btn">Добавить серию</button>
-      <button id="logoutBtn" class="btn">Выйти</button> </div>
-  </header>
+  <header class="top">
+    <div class="brand">
+      <div class="logo-badge">ADM</div>
+      <div class="title"><h1>Панель управления сериями</h1></div>
+    </div>
+    <div class="controls-top">
+      <button id="addEpisodeBtn" class="btn special-btn">Добавить серию</button>
+      <button id="logoutBtn" class="btn">Выйти</button> </div>
+  </header>
 
-  <section aria-label="Список эпизодов">
-      <table class="table" id="episodesTable" role="table">
-        <thead><tr><th>ID</th><th>Название</th><th>Дата</th><th class="action-cell">Действия</th></tr></thead>
-        <tbody id="episodesTableBody"></tbody>
-      </table>
-  </section>
+  <section aria-label="Список эпизодов">
+      <table class="table" id="episodesTable" role="table">
+        <thead><tr><th>ID</th><th>Название</th><th>Дата</th><th class="action-cell">Действия</th></tr></thead>
+        <tbody id="episodesTableBody"></tbody>
+      </table>
+  </section>
 </div>
 
 <div id="editModal" class="modal" role="dialog" aria-modal="true" aria-hidden="true">
-  <div class="modal-card" role="document">
-    <form id="episodeForm">
-      <input type="hidden" id="editId" value="">
-      <div class="modal-header"><h2 id="modalTitle">Добавить серию</h2><button type="button" id="closeModal" class="btn">Закрыть</button></div>
-      <div class="form-grid">
-          <div class="form-group"><label for="ep-id">Номер серии (ID)</label><input type="number" id="ep-id" class="form-input" required></div>
-          <div class="form-group"><label for="ep-date">Дата (ГГГГ-ММ-ДД)</label><input type="date" id="ep-date" class="form-input" required></div>
-          <div class="form-group full-width"><label for="ep-title">Название серии</label><input type="text" id="ep-title" class="form-input" required></div>
-          <div class="form-group full-width"><label for="ep-thumb">Ссылка на превью (Thumbnail)</label><input type="url" id="ep-thumb" class="form-input"></div>
-      </div>
-      <div class="form-group full-width"><label for="ep-iframe-dzen">Iframe плеера Dzen</label><textarea id="ep-iframe-dzen" class="form-textarea" placeholder="Вставьте код <iframe ...>"></textarea></div>
-      <div class="form-group full-width"><label for="ep-iframe-mega">Iframe плеера MEGA</label><textarea id="ep-iframe-mega" class="form-textarea" placeholder="Вставьте код <iframe ...>"></textarea></div>
-      <div class="form-group full-width"><label for="ep-iframe-kodik">Iframe плеера Kodik</label><textarea id="ep-iframe-kodik" class="form-textarea" placeholder="Вставьте код <iframe ...>"></textarea></div>
-      <div class="form-actions"><button type="button" id="cancelBtn" class="btn">Отмена</button><button type="submit" class="btn special-btn">Сохранить</button></div>
-    </form>
-  </div>
+  <div class="modal-card" role="document">
+    <form id="episodeForm">
+      <input type="hidden" id="editId" value="">
+      <div class="modal-header"><h2 id="modalTitle">Добавить серию</h2><button type="button" id="closeModal" class="btn">Закрыть</button></div>
+      <div class="form-grid">
+          <div class="form-group"><label for="ep-id">Номер серии (ID)</label><input type="number" id="ep-id" class="form-input" required></div>
+          <div class="form-group"><label for="ep-date">Дата (ГГГГ-ММ-ДД)</label><input type="date" id="ep-date" class="form-input" required></div>
+          <div class="form-group full-width"><label for="ep-title">Название серии</label><input type="text" id="ep-title" class="form-input" required></div>
+          <div class="form-group full-width"><label for="ep-thumb">Ссылка на превью (Thumbnail)</label><input type="url" id="ep-thumb" class="form-input"></div>
+      </div>
+      <div class="form-group full-width"><label for="ep-iframe-dzen">Iframe плеера Dzen</label><textarea id="ep-iframe-dzen" class="form-textarea" placeholder="Вставьте код <iframe ...>"></textarea></div>
+      <div class="form-group full-width"><label for="ep-iframe-mega">Iframe плеера MEGA</label><textarea id="ep-iframe-mega" class="form-textarea" placeholder="Вставьте код <iframe ...>"></textarea></div>
+      <div class="form-group full-width"><label for="ep-iframe-kodik">Iframe плеера Kodik</label><textarea id="ep-iframe-kodik" class="form-textarea" placeholder="Вставьте код <iframe ...>"></textarea></div>
+      <div class="form-actions"><button type="button" id="cancelBtn" class="btn">Отмена</button><button type="submit" class="btn special-btn">Сохранить</button></div>
+    </form>
+  </div>
 </div>
 
 <script type="module">
-  // --- FIREBASE: Импорт необходимых функций ---
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js";
-  import { getFirestore, collection, doc, getDocs, setDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore.js";
-  // ИЗМЕНЕНО: Добавляем импорты для Аутентификации
-  import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-auth.js";
+  // --- FIREBASE: Импорт необходимых функций ---
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js";
+  import { getFirestore, collection, doc, getDocs, setDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore.js";
+  import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-auth.js";
 
 
-  // --- FIREBASE: Ваша конфигурация ---
-  const firebaseConfig = {
-    apiKey: "AIzaSyBE1AkNd3bPGPr3ZPUbtqNUd2WDCB2SHHw",
-    authDomain: "letovshiyori.firebaseapp.com",
-    projectId: "letovshiyori",
-    storageBucket: "letovshiyori.appspot.com",
-    messagingSenderId: "379203362104",
-    appId: "1:379203362104:web:20235be9bbbbfdbd6df5cd"
-  };
+  // --- FIREBASE: Ваша конфигурация ---
+  const firebaseConfig = {
+    apiKey: "AIzaSyBE1AkNd3bPGPr3ZPUbtqNUd2WDCB2SHHw",
+    authDomain: "letovshiyori.firebaseapp.com",
+    projectId: "letovshiyori",
+    storageBucket: "letovshiyori.appspot.com",
+    messagingSenderId: "379203362104",
+    appId: "1:379203362104:web:20235be9bbbbfdbd6df5cd"
+  };
 
-  // --- FIREBASE: Инициализация ---
-  const app = initializeApp(firebaseConfig);
-  const db = getFirestore(app);
-  // ИЗМЕНЕНО: Инициализируем сервис Аутентификации
-  const auth = getAuth(app);
-  const episodesCollection = collection(db, 'episodes');
+  // --- FIREBASE: Инициализация ---
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+  const auth = getAuth(app);
+  const episodesCollection = collection(db, 'episodes');
 
-  // --- ЛОГИКА АУТЕНТИФИКАЦИИ ---
-  document.addEventListener('DOMContentLoaded', () => {
+  // --- ЛОГИКА АУТЕНТИФИКАЦИИ ---
+  document.addEventListener('DOMContentLoaded', () => {
 
-    const loginScreen = document.getElementById('login-screen');
-    const loginBtn = document.getElementById('loginBtn');
-    const mainWrap = document.querySelector('.wrap');
-    let adminPanelInitialized = false; // Флаг, чтобы избежать повторной инициализации
+    // ИЗМЕНЕНО: Создаем константу для разрешенного email
+    const ALLOWED_EMAIL = 'musiclandbrd21@gmail.com';
 
-    // Функция входа через Google
-    const signIn = () => {
-        const provider = new GoogleAuthProvider();
-        signInWithPopup(auth, provider)
-            .catch((error) => {
-                console.error("Ошибка входа:", error);
-                alert(`Не удалось войти: ${error.message}`);
-            });
-    };
+    const loginScreen = document.getElementById('login-screen');
+    const loginBtn = document.getElementById('loginBtn');
+    const mainWrap = document.querySelector('.wrap');
+    let adminPanelInitialized = false;
 
-    loginBtn.addEventListener('click', signIn);
+    const signIn = () => {
+        const provider = new GoogleAuthProvider();
+        signInWithPopup(auth, provider)
+            .catch((error) => {
+                console.error("Ошибка входа:", error);
+                alert(`Не удалось войти: ${error.message}`);
+            });
+    };
 
-    // Главный наблюдатель за состоянием аутентификации
-    onAuthStateChanged(auth, user => {
-        if (user) {
-            // Пользователь вошел в систему
-            console.log("Пользователь вошел:", user.displayName);
-            loginScreen.style.display = 'none';
-            mainWrap.style.display = 'block';
+    loginBtn.addEventListener('click', signIn);
 
-            // Инициализируем панель только один раз
-            if (!adminPanelInitialized) {
-                initializeAdminPanel();
-                adminPanelInitialized = true;
-            }
-        } else {
-            // Пользователь вышел из системы или не заходил
-            console.log("Пользователь не в системе.");
-            loginScreen.style.display = 'flex';
-            mainWrap.style.display = 'none';
-            adminPanelInitialized = false; // Сбрасываем флаг при выходе
-        }
-    });
+    // Главный наблюдатель за состоянием аутентификации
+    onAuthStateChanged(auth, user => {
+        if (user) {
+            // Пользователь вошел в систему, теперь проверяем его email
+            
+            // ИЗМЕНЕНО: Проверка на соответствие email из "белого списка"
+            if (user.email === ALLOWED_EMAIL) {
+                // ДОСТУП РАЗРЕШЕН
+                console.log("Доступ разрешен для администратора:", user.email);
+                loginScreen.style.display = 'none';
+                mainWrap.style.display = 'block';
 
-    // --- ЛОГИКА АДМИН-ПАНЕЛИ ---
-    function initializeAdminPanel() {
-        let episodes = [];
-        const tableBody = document.getElementById('episodesTableBody');
-        const modal = document.getElementById('editModal');
-        const form = document.getElementById('episodeForm');
-        const modalTitle = document.getElementById('modalTitle');
-        const addEpisodeBtn = document.getElementById('addEpisodeBtn');
-        const closeModalBtn = document.getElementById('closeModal');
-        const cancelBtn = document.getElementById('cancelBtn');
-        const editIdInput = document.getElementById('editId');
-        // НОВОЕ: Находим кнопку выхода
-        const logoutBtn = document.getElementById('logoutBtn');
+                if (!adminPanelInitialized) {
+                    initializeAdminPanel();
+                    adminPanelInitialized = true;
+                }
+            } else {
+                // ДОСТУП ЗАПРЕЩЕН
+                console.warn("Попытка входа с неразрешенного аккаунта:", user.email);
+                alert('Доступ запрещен. У вас нет прав для входа в эту панель.');
+                // Принудительно выходим из системы
+                signOut(auth);
+            }
+            
+        } else {
+            // Пользователь вышел из системы или не заходил
+            console.log("Пользователь не в системе.");
+            loginScreen.style.display = 'flex';
+            mainWrap.style.display = 'none';
+            adminPanelInitialized = false;
+        }
+    });
 
-        // НОВОЕ: Функция выхода
-        const logOut = () => {
-            signOut(auth).catch(error => console.error("Ошибка выхода:", error));
-        };
-        logoutBtn.addEventListener('click', logOut);
+    // --- ЛОГИКА АДМИН-ПАНЕЛИ ---
+    function initializeAdminPanel() {
+        let episodes = [];
+        const tableBody = document.getElementById('episodesTableBody');
+        const modal = document.getElementById('editModal');
+        const form = document.getElementById('episodeForm');
+        const modalTitle = document.getElementById('modalTitle');
+        const addEpisodeBtn = document.getElementById('addEpisodeBtn');
+        const closeModalBtn = document.getElementById('closeModal');
+        const cancelBtn = document.getElementById('cancelBtn');
+        const editIdInput = document.getElementById('editId');
+        const logoutBtn = document.getElementById('logoutBtn');
+
+        const logOut = () => {
+            signOut(auth).catch(error => console.error("Ошибка выхода:", error));
+        };
+        logoutBtn.addEventListener('click', logOut);
 
 
-        async function loadEpisodes() { /* ... ваш код loadEpisodes без изменений ... */
-            tableBody.innerHTML = `<tr><td colspan="4" style="text-align:center;padding:2rem;">Загрузка серий...</td></tr>`;
-            try {
-                const querySnapshot = await getDocs(episodesCollection);
-                episodes = [];
-                querySnapshot.forEach((doc) => {
-                    episodes.push({ firestoreId: doc.id, ...doc.data() });
-                });
-                renderTable();
-            } catch (error) {
-                console.error("Ошибка при загрузке серий из Firestore: ", error);
-                tableBody.innerHTML = `<tr><td colspan="4" style="text-align:center;padding:2rem;color:var(--accent-c);">Ошибка загрузки данных. Проверьте консоль.</td></tr>`;
-            }
-        }
+        async function loadEpisodes() {
+            tableBody.innerHTML = `<tr><td colspan="4" style="text-align:center;padding:2rem;">Загрузка серий...</td></tr>`;
+            try {
+                const querySnapshot = await getDocs(episodesCollection);
+                episodes = [];
+                querySnapshot.forEach((doc) => {
+                    episodes.push({ firestoreId: doc.id, ...doc.data() });
+                });
+                renderTable();
+            } catch (error) {
+                console.error("Ошибка при загрузке серий из Firestore: ", error);
+                tableBody.innerHTML = `<tr><td colspan="4" style="text-align:center;padding:2rem;color:var(--accent-c);">Ошибка загрузки данных. Проверьте консоль.</td></tr>`;
+            }
+        }
 
-        function renderTable() { /* ... ваш код renderTable без изменений ... */
-            tableBody.innerHTML = '';
-            if (episodes.length === 0) {
-                tableBody.innerHTML = `<tr><td colspan="4" style="text-align:center;padding:2rem;">Серий пока нет. Нажмите "Добавить серию", чтобы начать.</td></tr>`;
-                return;
-            }
-            const sortedEpisodes = [...episodes].sort((a, b) => b.id - a.id);
-            sortedEpisodes.forEach(ep => {
-                const tr = document.createElement('tr');
-                tr.innerHTML = `
-                    <td><strong>${ep.id}</strong></td>
-                    <td>${ep.title}</td>
-                    <td>${ep.date}</td>
-                    <td class="action-cell">
-                        <button class="btn edit-btn" data-id="${ep.firestoreId}">Изменить</button>
-                        <button class="btn danger-btn delete-btn" data-id="${ep.firestoreId}">Удалить</button>
-                    </td>`;
-                tableBody.appendChild(tr);
-            });
-        }
+        function renderTable() {
+            tableBody.innerHTML = '';
+            if (episodes.length === 0) {
+                tableBody.innerHTML = `<tr><td colspan="4" style="text-align:center;padding:2rem;">Серий пока нет. Нажмите "Добавить серию", чтобы начать.</td></tr>`;
+                return;
+            }
+            const sortedEpisodes = [...episodes].sort((a, b) => b.id - a.id);
+            sortedEpisodes.forEach(ep => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td><strong>${ep.id}</strong></td>
+                    <td>${ep.title}</td>
+                    <td>${ep.date}</td>
+                    <td class="action-cell">
+                        <button class="btn edit-btn" data-id="${ep.firestoreId}">Изменить</button>
+                        <button class="btn danger-btn delete-btn" data-id="${ep.firestoreId}">Удалить</button>
+                    </td>`;
+                tableBody.appendChild(tr);
+            });
+        }
 
-        function openModal(episodeId = null) { /* ... ваш код openModal без изменений ... */
-            form.reset();
-            document.getElementById('ep-id').readOnly = false;
-            editIdInput.value = episodeId || '';
+        function openModal(episodeId = null) {
+            form.reset();
+            document.getElementById('ep-id').readOnly = false;
+            editIdInput.value = episodeId || '';
 
-            if (episodeId) {
-                modalTitle.textContent = "Редактировать серию";
-                const ep = episodes.find(e => e.firestoreId === episodeId);
-                if (ep) {
-                    document.getElementById('ep-id').value = ep.id;
-                    document.getElementById('ep-id').readOnly = true;
-                    document.getElementById('ep-title').value = ep.title;
-                    document.getElementById('ep-date').value = ep.date;
-                    document.getElementById('ep-thumb').value = ep.thumb || '';
-                    document.getElementById('ep-iframe-dzen').value = ep.players.dzen || '';
-                    document.getElementById('ep-iframe-mega').value = ep.players.mega || '';
-                    document.getElementById('ep-iframe-kodik').value = ep.players.kodik || '';
-                }
-            } else {
-                modalTitle.textContent = "Добавить новую серию";
-            }
-            modal.classList.add('open');
-            modal.setAttribute('aria-hidden', 'false');
-        }
+            if (episodeId) {
+                modalTitle.textContent = "Редактировать серию";
+                const ep = episodes.find(e => e.firestoreId === episodeId);
+                if (ep) {
+                    document.getElementById('ep-id').value = ep.id;
+                    document.getElementById('ep-id').readOnly = true;
+                    document.getElementById('ep-title').value = ep.title;
+                    document.getElementById('ep-date').value = ep.date;
+                    document.getElementById('ep-thumb').value = ep.thumb || '';
+                    document.getElementById('ep-iframe-dzen').value = ep.players.dzen || '';
+                    document.getElementById('ep-iframe-mega').value = ep.players.mega || '';
+                    document.getElementById('ep-iframe-kodik').value = ep.players.kodik || '';
+                }
+            } else {
+                modalTitle.textContent = "Добавить новую серию";
+            }
+            modal.classList.add('open');
+            modal.setAttribute('aria-hidden', 'false');
+        }
 
-        function closeModal() { /* ... ваш код closeModal без изменений ... */
-            modal.classList.remove('open');
-            modal.setAttribute('aria-hidden', 'true');
-        }
+        function closeModal() {
+            modal.classList.remove('open');
+            modal.setAttribute('aria-hidden', 'true');
+        }
 
-        async function handleFormSubmit(e) { /* ... ваш код handleFormSubmit без изменений ... */
-            e.preventDefault();
-            const episodeIdValue = document.getElementById('ep-id').value;
-            if (!episodeIdValue) {
-                alert("Номер серии (ID) является обязательным полем.");
-                return;
-            }
-            const episodeData = {
-                id: parseInt(episodeIdValue, 10),
-                title: document.getElementById('ep-title').value,
-                date: document.getElementById('ep-date').value,
-                thumb: document.getElementById('ep-thumb').value,
-                quality: "1080p",
-                players: {
-                    dzen: document.getElementById('ep-iframe-dzen').value,
-                    mega: document.getElementById('ep-iframe-mega').value,
-                    kodik: document.getElementById('ep-iframe-kodik').value
-                }
-            };
-            const docId = String(episodeData.id);
-            try {
-                await setDoc(doc(db, "episodes", docId), episodeData);
-                closeModal();
-                await loadEpisodes();
-            } catch (error) {
-                console.error("Ошибка при сохранении серии: ", error);
-                alert("Не удалось сохранить серию. См. консоль для деталей.");
-            }
-        }
+        async function handleFormSubmit(e) {
+            e.preventDefault();
+            const episodeIdValue = document.getElementById('ep-id').value;
+            if (!episodeIdValue) {
+                alert("Номер серии (ID) является обязательным полем.");
+                return;
+            }
+            const episodeData = {
+                id: parseInt(episodeIdValue, 10),
+                title: document.getElementById('ep-title').value,
+                date: document.getElementById('ep-date').value,
+                thumb: document.getElementById('ep-thumb').value,
+                quality: "1080p",
+                players: {
+                    dzen: document.getElementById('ep-iframe-dzen').value,
+                    mega: document.getElementById('ep-iframe-mega').value,
+                    kodik: document.getElementById('ep-iframe-kodik').value
+                }
+            };
+            const docId = String(episodeData.id);
+            try {
+                await setDoc(doc(db, "episodes", docId), episodeData);
+                closeModal();
+                await loadEpisodes();
+            } catch (error) {
+                console.error("Ошибка при сохранении серии: ", error);
+                alert("Не удалось сохранить серию. См. консоль для деталей.");
+            }
+        }
 
-        addEpisodeBtn.addEventListener('click', () => openModal());
+        addEpisodeBtn.addEventListener('click', () => openModal());
 
-        tableBody.addEventListener('click', async (e) => { /* ... ваш код обработчика кликов по таблице без изменений ... */
-            const target = e.target;
-            const episodeId = target.getAttribute('data-id');
-            if (target.classList.contains('edit-btn')) {
-                openModal(episodeId);
-            }
-            if (target.classList.contains('delete-btn')) {
-                const episodeToDelete = episodes.find(ep => ep.firestoreId === episodeId);
-                if (episodeToDelete && confirm(`Вы уверены, что хотите удалить "${episodeToDelete.title}"?`)) {
-                    try {
-                        await deleteDoc(doc(db, "episodes", episodeId));
-                        await loadEpisodes();
-                    } catch (error) {
-                        console.error("Ошибка при удалении серии: ", error);
-                        alert("Не удалось удалить серию. См. консоль для деталей.");
-                    }
-                }
-            }
-        });
+        tableBody.addEventListener('click', async (e) => {
+            const target = e.target;
+            const episodeId = target.getAttribute('data-id');
+            if (target.classList.contains('edit-btn')) {
+                openModal(episodeId);
+            }
+            if (target.classList.contains('delete-btn')) {
+                const episodeToDelete = episodes.find(ep => ep.firestoreId === episodeId);
+                if (episodeToDelete && confirm(`Вы уверены, что хотите удалить "${episodeToDelete.title}"?`)) {
+                    try {
+                        await deleteDoc(doc(db, "episodes", episodeId));
+                        await loadEpisodes();
+                    } catch (error) {
+                        console.error("Ошибка при удалении серии: ", error);
+                        alert("Не удалось удалить серию. См. консоль для деталей.");
+                    }
+                }
+            }
+        });
 
-        form.addEventListener('submit', handleFormSubmit);
-        closeModalBtn.addEventListener('click', closeModal);
-        cancelBtn.addEventListener('click', closeModal);
-        modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
-        document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && modal.classList.contains('open')) { closeModal(); } });
-        
-        loadEpisodes();
-    }
-    
-    // УДАЛЕНО: Старая функция authenticate() больше не нужна.
-  });
+        form.addEventListener('submit', handleFormSubmit);
+        closeModalBtn.addEventListener('click', closeModal);
+        cancelBtn.addEventListener('click', closeModal);
+        modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && modal.classList.contains('open')) { closeModal(); } });
+        
+        loadEpisodes();
+    }
+    
+  });
 </script>
 </body>
 </html>
