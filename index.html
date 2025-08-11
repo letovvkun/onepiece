@@ -23,7 +23,6 @@
     --card-shadow: 0 24px 60px rgba(2,6,23,0.6);
     --ep-hover-shadow: 0 16px 40px rgba(2,6,23,0.45);
     --special-btn-text-color: #1a1a1a;
-    /* --- ДОБАВЛЕНО: Переменная для тени плеера --- */
     --player-shadow: 0 10px 30px rgba(2,6,23,0.5);
   }
   
@@ -42,7 +41,6 @@
     --card-shadow: 0 12px 35px rgba(0, 30, 80, 0.08);
     --ep-hover-shadow: 0 12px 30px rgba(0, 30, 80, 0.12);
     --special-btn-text-color: #ffffff;
-    /* --- ДОБАВЛЕНО: Переменная для тени плеера в светлой теме --- */
     --player-shadow: 0 10px 30px rgba(0, 30, 80, 0.15);
   }
 
@@ -98,7 +96,6 @@
     backdrop-filter: blur(14px) saturate(1.05);
   }
 
-  /* --- ДОБАВЛЕНО: Стили для подложки в светлой теме --- */
   [data-theme="light"] .wrap {
     background: linear-gradient(180deg, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.6));
     backdrop-filter: blur(16px) saturate(1.1);
@@ -220,16 +217,16 @@
   
   .player-wrap{
     width:100%; border-radius:12px; overflow:hidden; display:block;
-    /* --- ИЗМЕНЕНО: Тень теперь адаптивная --- */
     box-shadow: var(--player-shadow); 
     transform-origin:center;
-    animation: levitate 6s ease-in-out infinite;
+    /* --- ИЗМЕНЕНО: Анимация стала плавнее за счет 'alternate' --- */
+    animation: levitate 4s ease-in-out infinite alternate;
   }
-  /* --- ДОБАВЛЕНО: Анимация левитации --- */
+
+  /* --- ИЗМЕНЕНО: Упрощенные ключевые кадры для плавной анимации --- */
   @keyframes levitate {
-    0% { transform: translateY(0); }
-    50% { transform: translateY(-6px); }
-    100% { transform: translateY(0); }
+    from { transform: translateY(0); }
+    to { transform: translateY(-6px); }
   }
 
   .embed {
